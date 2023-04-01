@@ -34,10 +34,3 @@ if neither player won nor lost, a new turn should proceed with resonses proceedi
 Once player has won or lost a button will appear with text "play again"
     if clicked, the gameboard and keyboard should reset
     the correct word will be added to the array of usedWords 
-    
-
-
-        
-
-
-

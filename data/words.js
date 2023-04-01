@@ -1,0 +1,1 @@
+words = ['every', 'sound', 'forge', 'ferry']
