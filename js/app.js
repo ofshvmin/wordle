@@ -1,11 +1,10 @@
-
+import words from "../data/words.js"
 
 /*-------------------------------- Constants --------------------------------*/
 
 const library = [] //directory file with list of all 5-letter words in the english language
 const usedWords = []//array of words that have already been used
 
-console.log('hello');
 const gameBoard = [
     {turn: 1, guess: ""},
     {turn: 2, guess: ""}
@@ -28,48 +27,82 @@ let hasLost = false
 
 /*------------------------ Cached Element References ------------------------*/
 
-gameBoardTiles
-onScreenKeyboard
-playAgainBtn
+const gameBoardTiles = document.querySelectorAll(".sqr")
+// playAgainBtn
+const keyEls = document.querySelectorAll(".key")
+
 
 /*----------------------------- Event Listeners -----------------------------*/
 
-//each button on onscreen keyboard will need an event AudioListener
+keyEls.forEach(function(key) {
+    key.addEventListener('click', handleClick)
+})
+
+
 //letters on the user's physical keyboard will need an event listener
 //play again button will need an event listener
 
 /*-------------------------------- Functions --------------------------------*/
 
-InitializeGame()
-    computerChoosesWord() //randomly select a word from library
-        //if word not included in usedWords set correctWord = word
-    resetGameBoard()  //create a 5x6 board of blank squares, iterate through to set all values to null
-    resetKeyboard()
+
+function initializeGame() {
+    if(correctWord) {
+        usedWords.push(correctWord)
+    }
+    resetGameBoard()
+    computerChoosesWord() 
+    ??
+}
+
+//         //if word not included in usedWords set correctWord = word
+//     resetGameBoard()  //create a 5x6 board of blank squares, iterate through to set all values to null
+//     resetKeyboard()
+//     hasWon = false
+//     lasLost = false
+//     render()
+
+// //render keyboard of 26 letters, and enter key, and a backspace key
+
+// EvaluateGuess() //compares each letter to the letters in correctWord
+//     //if letter is present && index of letter === index of the letter in correctWord
+//     //if letter is present && index of letter !== index of the letter in correctWord
+//     //if letter is not present 
+
+
+
+// initializeGame()
+
+function computerChoosesWord() { //randomly select a word from library
+    let selectedWord = null
+    // function selectWord() {
+    //     slectedWord = words[Math.floor(Math.random() * words.length)]
+    // } 
+    while(!selectedWord) {
+        let potentialWord = words[Math.floor(Math.random() * words.length)]
+        if(usedWords.includes(potentialWord) === false) {
+            selectedWord = potentialWord
+        }
+    }
+    console.log(selectedWord);
+}
+
+function resetGameBoard() {
+    playerGuess = [null, null, null, null, null]
+    correctWord = ""
+    turn = 1
     hasWon = false
-    lasLost = false
-    render()
+    hasLost = false
+}
 
-//render keyboard of 26 letters, and enter key, and a backspace key
-
-EvaluateGuess() //compares each letter to the letters in correctWord
-    //if letter is present && index of letter === index of the letter in correctWord
-    //if letter is present && index of letter !== index of the letter in correctWord
-    //if letter is not present 
-
-
-
-
-
-
+function handleClick(evt) {
+    console.log(evt.target.id);
+}
 
 /*-------------------------------- PsuedoCode --------------------------------*/
 
 //     Wordle
 
-// On page load, display 
-// - a 5x6 grid of blank black tiles
-// - an onscreen keyboard with all 26 letters + enter + backspace keys in light grey 
-// - if correcWord is not null, add correctWord value to the array usedWords
+// - if correctWord is not null, add correctWord value to the array usedWords
 // - a function will run to choose a 5 letter word at random from a dataset of words
 // - if word is not present in the usedWords array populate the word in the correctWord variable
 

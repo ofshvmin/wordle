@@ -7,21 +7,24 @@ body {
     align-items: center;
 }
 
+
 section.board {
     display: grid;
     background-color: blue;
     border: 3px solid black;
     padding: 10px;
+    justify-content: center;
+    align-content: center;
     grid-template-columns: repeat(5, 20vmin);
     grid-template-rows: repeat(6, 20vmin);
     grid-gap: 1vmin;
 }
 
+
 .sqr {
     border: 3px solid rgb(39, 36, 38);
-    display: inline;
-    flex-direction: column;
-    font-size: 8vmin;
+    display: flex;
+    font-size: 24px;
     align-items: center;
     justify-content: center;
     vertical-align: middle;

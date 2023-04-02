@@ -6,84 +6,84 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="./css/style.css">
     <title>Wordle</title>
-    <script defer src="./js/app.js"></script>
+    <script src="./js/app.js" type="module"></script>
 </head>
 <body>
     <h1>Wordle</h1>
         
 	<section class="board">
-		<div class="sqr" id="l1-sq0">1</div>
-		<div class="sqr" id="l1-sq1">2</div>
-		<div class="sqr" id="l1-sq2">3</div>
-		<div class="sqr" id="l1-sq3">4</div>
-		<div class="sqr" id="l1-sq4">5</div>
+			<div class="sqr" id="l1-sq0">1</div>
+			<div class="sqr" id="l1-sq1">2</div>
+			<div class="sqr" id="l1-sq2">3</div>
+			<div class="sqr" id="l1-sq3">4</div>
+			<div class="sqr" id="l1-sq4">5</div>
 
-		<div class="sqr" id="l2-sq0"></div>
-		<div class="sqr" id="l2-sq1"></div>
-		<div class="sqr" id="l2-sq2"></div>
-		<div class="sqr" id="l2-sq3"></div>
-		<div class="sqr" id="l2-sq4"></div>
+			<div class="sqr" id="l2-sq0"></div>
+			<div class="sqr" id="l2-sq1"></div>
+			<div class="sqr" id="l2-sq2"></div>
+			<div class="sqr" id="l2-sq3"></div>
+			<div class="sqr" id="l2-sq4"></div>
 
-		<div class="sqr" id="l3-sq0"></div>
-		<div class="sqr" id="l3-sq1"></div>
-		<div class="sqr" id="l3-sq2"></div>
-		<div class="sqr" id="l3-sq3"></div>
-		<div class="sqr" id="l3-sq4"></div>
+			<div class="sqr" id="l3-sq0"></div>
+			<div class="sqr" id="l3-sq1"></div>
+			<div class="sqr" id="l3-sq2"></div>
+			<div class="sqr" id="l3-sq3"></div>
+			<div class="sqr" id="l3-sq4"></div>
 
-		<div class="sqr" id="l4-sq0"></div>
-		<div class="sqr" id="l4-sq1"></div>
-		<div class="sqr" id="l4-sq2"></div>
-		<div class="sqr" id="l4-sq3"></div>
-		<div class="sqr" id="l4-sq4"></div>
+			<div class="sqr" id="l4-sq0"></div>
+			<div class="sqr" id="l4-sq1"></div>
+			<div class="sqr" id="l4-sq2"></div>
+			<div class="sqr" id="l4-sq3"></div>
+			<div class="sqr" id="l4-sq4"></div>
 
-		<div class="sqr" id="l5-sq0"></div>
-		<div class="sqr" id="l5-sq1"></div>
-		<div class="sqr" id="l5-sq2"></div>
-		<div class="sqr" id="l5-sq3"></div>
-		<div class="sqr" id="l5-sq4"></div>
+			<div class="sqr" id="l5-sq0"></div>
+			<div class="sqr" id="l5-sq1"></div>
+			<div class="sqr" id="l5-sq2"></div>
+			<div class="sqr" id="l5-sq3"></div>
+			<div class="sqr" id="l5-sq4"></div>
 
-		<div class="sqr" id="l6-sq0"></div>
-		<div class="sqr" id="l6-sq1"></div>
-		<div class="sqr" id="l6-sq2"></div>
-		<div class="sqr" id="l6-sq3"></div>
-		<div class="sqr" id="l6-sq4"></div>
-	</section>
+			<div class="sqr" id="l6-sq0"></div>
+			<div class="sqr" id="l6-sq1"></div>
+			<div class="sqr" id="l6-sq2"></div>
+			<div class="sqr" id="l6-sq3"></div>
+			<div class="sqr" id="l6-sq4"></div>
+		</section>
 
 <section class="keyboard">
 		<div class="top-row">
-			<span class="key">Q</span>
-			<span class="key">W</span>
-			<span class="key">E</span>
-			<span class="key">R</span>
-			<span class="key">T</span>
-			<span class="key">Y</span>
-			<span class="key">U</span>
-			<span class="key">I</span>
-			<span class="key">O</span>
-			<span class="key">P</span>
+			<span class="key" id="q">Q</span>
+			<span class="key" id="w">W</span>
+			<span class="key" id="e">E</span>
+			<span class="key" id="r">R</span>
+			<span class="key" id="t">T</span>
+			<span class="key" id="y">Y</span>
+			<span class="key" id="u">U</span>
+			<span class="key" id="i">I</span>
+			<span class="key" id="o">O</span>
+			<span class="key" id="p">P</span>
 		</div>
 		
 		<div class="middle-row">
-			<span class="key">A</span>
-			<span class="key">S</span>
-			<span class="key">D</span>
-			<span class="key">F</span>
-			<span class="key">G</span>
-			<span class="key">H</span>
-			<span class="key">J</span>
-			<span class="key">K</span>
-			<span class="key">L</span>
+			<span class="key" id="a">A</span>
+			<span class="key" id="s">S</span>
+			<span class="key" id="d">D</span>
+			<span class="key" id="f">F</span>
+			<span class="key" id="g">G</span>
+			<span class="key" id="h">H</span>
+			<span class="key" id="j">J</span>
+			<span class="key" id="k">K</span>
+			<span class="key" id="l">L</span>
 		</div>
 		<div class="bottom-row">
-			<span class="key">backspace</span>		
-			<span class="key">Z</span>
-			<span class="key">X</span>
-			<span class="key">C</span>
-			<span class="key">V</span>
-			<span class="key">B</span>
-			<span class="key">N</span>
-			<span class="key">M</span>
-			<span class="key">enter</span>
+			<span class="key" id="backspace">backspace</span>		
+			<span class="key" id="z">Z</span>
+			<span class="key" id="x">X</span>
+			<span class="key" id="c">C</span>
+			<span class="key" id="v">V</span>
+			<span class="key" id="b">B</span>
+			<span class="key" id="n">N</span>
+			<span class="key" id="m">M</span>
+			<span class="key" id="enter">enter</span>
 			
 		</div>
 		
