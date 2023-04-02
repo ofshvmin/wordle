@@ -6,8 +6,8 @@ const library = [] //directory file with list of all 5-letter words in the engli
 const usedWords = []//array of words that have already been used
 
 const gameBoard = [
-    {turn: 1, guess: ""},
-    {turn: 2, guess: ""}
+    {turn: 1, playerGuess: [null, null, null, null, null]},
+    {turn: 2, playerGuess: [null, null, null, null, null]}
     
 ]
 
@@ -18,9 +18,9 @@ const keyboard = [
 ]
 
 /*-------------------------------- Variables --------------------------------*/
-let playerGuess = [null, null, null, null, null]
+
 let correctWord = ""
-let turn = 1
+let turn = 0
 let hasWon = false
 let hasLost = false
 
@@ -97,12 +97,12 @@ function resetGameBoard() {
 
 function handleClick(evt) {
     let ltrGuess = evt.target.id
-    console.log(ltrGuess);
-    holdGuess(ltrGuess)
+    // console.log(ltrGuess);
+    handleGuess(ltrGuess)
     render()
 }
 
-function holdGuess(ltrGuess) {
+function handleGuess(ltrGuess) {
     if(ltrGuess != 'backspace' && ltrGuess != 'enter'){
         tempGuess.push(ltrGuess)
     } 
@@ -116,6 +116,10 @@ function holdGuess(ltrGuess) {
 
 function submitGuess() {
     console.log('this guess is final')
+    
+    gameBoard[turn].turn = turn//update game board for current turn with current guess
+    gameBoard[turn].playerGuess = tempGuess
+    evaluateGuess()    //evaluate current guess against correct word
 }
 
 function render() {
@@ -123,19 +127,27 @@ function render() {
 }
 
 function updateBoard() {
-    tempGuess.forEach(function(letter) {
-        let idx = tempGuess.indexOf(letter)
-        console.log(idx)
-        gameBoardTiles[idx].textContent = `${letter}`
-    })
+
+for(let i = 0; i < tempGuess.length; i++) {
+    console.log(i);
+    gameBoardTiles[i].textContent = `${tempGuess[i]}`
+}
+
+//what if we update the board based on the values of tempGuess??  could use the index to map to the tile
+
+    // tempGuess.forEach(function(letter) {
+    //     let idx = tempGuess.indexOf(letter)
+    //     console.log(idx)
+    //     gameBoardTiles[idx].textContent = `${letter}`
+    // })
 }
 
 
-{/* <div class="sqr" id="l1-sq0"></div>
-<div class="sqr" id="l1-sq1"></div>
-<div class="sqr" id="l1-sq2"></div>
-<div class="sqr" id="l1-sq3"></div>
-<div class="sqr" id="l1-sq4"></div> */}
+
+
+function evaluateGuess() {
+    console.log(gameBoard);
+}
 
 /*-------------------------------- PsuedoCode --------------------------------*/
 
