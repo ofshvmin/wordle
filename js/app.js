@@ -51,7 +51,6 @@ function initializeGame() {
     }
     resetGameBoard()
     computerChoosesWord() 
-    ??
 }
 
 //         //if word not included in usedWords set correctWord = word
@@ -95,9 +94,27 @@ function resetGameBoard() {
 }
 
 function handleClick(evt) {
-    console.log(evt.target.id);
+    let ltrGuess = evt.target.id
+    console.log(ltrGuess);
+    holdGuess(ltrGuess)
 }
 
+let tempGuess = []
+function holdGuess(ltrGuess) {
+    if(ltrGuess != 'backspace' && ltrGuess != 'enter'){
+        tempGuess.push(ltrGuess)
+    } 
+    else if(ltrGuess === 'backspace') { 
+            tempGuess.pop()
+    } else {
+        submitGuess()
+    }
+    console.log(tempGuess)
+}
+
+function submitGuess() {
+    console.log('this guess is final')
+}
 /*-------------------------------- PsuedoCode --------------------------------*/
 
 //     Wordle
