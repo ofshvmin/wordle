@@ -24,6 +24,7 @@ let turn = 1
 let hasWon = false
 let hasLost = false
 
+let tempGuess = []
 
 /*------------------------ Cached Element References ------------------------*/
 
@@ -31,6 +32,7 @@ const gameBoardTiles = document.querySelectorAll(".sqr")
 // playAgainBtn
 const keyEls = document.querySelectorAll(".key")
 
+console.log(gameBoardTiles);
 
 /*----------------------------- Event Listeners -----------------------------*/
 
@@ -97,9 +99,9 @@ function handleClick(evt) {
     let ltrGuess = evt.target.id
     console.log(ltrGuess);
     holdGuess(ltrGuess)
+    render()
 }
 
-let tempGuess = []
 function holdGuess(ltrGuess) {
     if(ltrGuess != 'backspace' && ltrGuess != 'enter'){
         tempGuess.push(ltrGuess)
@@ -115,6 +117,26 @@ function holdGuess(ltrGuess) {
 function submitGuess() {
     console.log('this guess is final')
 }
+
+function render() {
+    updateBoard()
+}
+
+function updateBoard() {
+    tempGuess.forEach(function(letter) {
+        let idx = tempGuess.indexOf(letter)
+        console.log(idx)
+        gameBoardTiles[idx].textContent = `${letter}`
+    })
+}
+
+
+{/* <div class="sqr" id="l1-sq0"></div>
+<div class="sqr" id="l1-sq1"></div>
+<div class="sqr" id="l1-sq2"></div>
+<div class="sqr" id="l1-sq3"></div>
+<div class="sqr" id="l1-sq4"></div> */}
+
 /*-------------------------------- PsuedoCode --------------------------------*/
 
 //     Wordle
