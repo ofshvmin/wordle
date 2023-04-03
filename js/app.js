@@ -124,10 +124,16 @@ function handleClick(evt) {
 
 function handleGuess(ltrGuess) {
     if(ltrGuess != 'backspace' && ltrGuess != 'enter'){
-        tempGuess.push(ltrGuess)
+        if(tempGuess.length < 5) {
+            tempGuess.push(ltrGuess)
+        } else {
+            console.log('invalid - display wiggle animation');
+        }
+
     } 
     else if(ltrGuess === 'backspace') { 
             tempGuess.pop()
+
     } else {
         submitGuess()
     }
@@ -150,7 +156,13 @@ function updateBoard() {
     for(let i = 0; i < tempGuess.length; i++) {
         console.log(i)
         gameBoardTiles[i].textContent = `${tempGuess[i]}`
-    }
+    } 
+    if(tempGuess.length < 5){gameBoardTiles[4].textContent = ""}
+    if(tempGuess.length < 4){gameBoardTiles[3].textContent = ""}
+    if(tempGuess.length < 3){gameBoardTiles[2].textContent = ""}
+    if(tempGuess.length < 2){gameBoardTiles[1].textContent = ""}
+    if(tempGuess.length < 1){gameBoardTiles[0].textContent = ""}
+
     // gameBoardTiles.forEach(function(idx) {
     //     if(!tempGuess[idx] === gameBoardTiles[idx]) gameBoardTiles[idx].textContent = ""
     // })
