@@ -15,6 +15,16 @@ const gameBoard = [
     {turn: 5, playerGuess: [null, null, null, null, null]}
 ]
 
+let tempGuess = [
+    {turn: 0, letters: []},
+    {turn: 1, letters: []},
+    {turn: 2, letters: []},
+    {turn: 3, letters: []},
+    {turn: 4, letters: []},
+    {turn: 5, letters: []}
+]
+
+
 const keyboard = [
     { letter: "a", used: false, correctLetter: false, correctPlace: false },
     { letter: "b", used: false, correctLetter: false, correctPlace: false },
@@ -27,8 +37,6 @@ let correctWord = ""
 let turn = 0
 let hasWon = false
 let hasLost = false
-
-let tempGuess = []
 
 /*------------------------ Cached Element References ------------------------*/
 
@@ -118,47 +126,103 @@ function resetGameBoard() {
 function handleClick(evt) {
     let ltrGuess = evt.target.id
     // console.log(ltrGuess);
-    handleGuess(ltrGuess)
+    handleInputs(ltrGuess)
     render()
 }
 
-function handleGuess(ltrGuess) {
+
+
+
+
+
+
+
+
+
+
+
+function handleInputs(ltrGuess) {
     if(ltrGuess != 'backspace' && ltrGuess != 'enter'){
-        if(tempGuess.length < 5) {
-            tempGuess.push(ltrGuess)
+        if(tempGuess[turn].letters.length < 5) {
+            tempGuess[turn].letters.push(ltrGuess)
+            console.log(tempGuess[turn].letters)
+            console.log(turn);
         } else {
             console.log('invalid - display wiggle animation') // -------------------------------------------------------------update this
         }
     } 
     else if(ltrGuess === 'backspace') { 
-            tempGuess.pop()
+            tempGuess[turn].letters.pop()
     } else {
         submitGuess()
     }
-    console.log(tempGuess)
+    // console.log(tempGuess[turn].letters)
 }
 
 function submitGuess() {
     console.log('this guess is final')// ---------------------------------------------------------------------------------------update this
     gameBoard[turn].turn = turn//update game board for current turn with current guess
-    gameBoard[turn].playerGuess = tempGuess
+    gameBoard[turn].playerGuess = tempGuess[turn].letters
     evaluateGuess()    //evaluate current guess against correct word
+    incrementTurn()
 }
 
 function render() {
     updateBoard()
 }
 
+
+
+
+
 function updateBoard() {
-    for(let i = 0; i < tempGuess.length; i++) {
-        // console.log(i)
-        gameBoardTiles[i].textContent = `${tempGuess[i]}`
-    } 
-    if(tempGuess.length < 5){gameBoardTiles[4].textContent = ""}
-    if(tempGuess.length < 4){gameBoardTiles[3].textContent = ""}
-    if(tempGuess.length < 3){gameBoardTiles[2].textContent = ""}
-    if(tempGuess.length < 2){gameBoardTiles[1].textContent = ""}
-    if(tempGuess.length < 1){gameBoardTiles[0].textContent = ""}
+    for(let i = 0; i < tempGuess[turn].letters.length; i++) {
+        const boardIdx = 5 * turn + i
+        console.log(boardIdx);
+        gameBoardTiles[boardIdx].textContent = `${tempGuess[turn].letters[i]}`
+    }
+            if(tempGuess[turn].letters.length < 5){gameBoardTiles[4].textContent = ""}
+            if(tempGuess[turn].letters.length < 4){gameBoardTiles[3].textContent = ""}
+            if(tempGuess[turn].letters.length < 3){gameBoardTiles[2].textContent = ""}
+            if(tempGuess[turn].letters.length < 2){gameBoardTiles[1].textContent = ""}
+            if(tempGuess[turn].letters.length < 1){gameBoardTiles[0].textContent = ""}
+    
+
+        
+    }        
+
+
+
+
+
+
+
+let testColumn = 3 //this will equal the index of its position in the array
+let testRow = 2 //this will equal turn
+let testSqrID = `#l${testRow}-sq${testColumn}`
+console.log(testSqrID);
+console.log(document.querySelector("#l2-sq3"));
+console.log(document.querySelector(testSqrID));
+
+// document.querySelector(testSqrID)
+
+
+
+//how do i move the temp guess down to the next row
+
+// if turn 0, 0*5 => 0 1 2 3 4
+// if turn 1, 1*5 => 5 6 7 8 9 
+// if turn 2, 2*5 => 10 11 12 13 14
+
+
+
+// tempGuess.forEach((index) => gameBoardTiles[index * turnIndex].textContent = `${tempGuess[index]}`)
+
+
+
+
+
+
 
     // gameBoardTiles.forEach(function(idx) {
     //     if(!tempGuess[idx] === gameBoardTiles[idx]) gameBoardTiles[idx].textContent = ""
@@ -168,10 +232,10 @@ function updateBoard() {
 
         // tempGuess.forEach(function(letter) {
         //     let idx = tempGuess.indexOf(letter)
-        //     console.log(idx)
-        //     gameBoardTiles[idx].textContent = `${letter}`
-        // })
-}
+            // console.log(idx)
+            // gameBoardTiles[idx].textContent = `${letter}`
+            // })
+            
 
 function incrementTurn() {
     turn++

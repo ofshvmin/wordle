@@ -1,5 +1,5 @@
 body {
-    background-color: aqua;
+    background-color: rgb(116, 114, 113);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -8,7 +8,7 @@ body {
 
 section.board {
     display: grid;
-    background-color: whitesmoke;
+    background-color: rgb(15, 7, 7);
     border: 3px solid black;
     padding: 10px;
     justify-content: center;
@@ -23,6 +23,7 @@ section.board {
     border: 3px solid rgb(39, 36, 38);
     display: flex;
     font-size: 24px;
+    color: brown;
     align-items: center;
     justify-content: center;
     vertical-align: middle;
