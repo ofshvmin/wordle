@@ -36,7 +36,6 @@ const gameBoardTiles = document.querySelectorAll(".sqr")
 // playAgainBtn
 const keyEls = document.querySelectorAll(".key")
 
-console.log(gameBoardTiles);
 
 /*----------------------------- Event Listeners -----------------------------*/
 
@@ -69,10 +68,10 @@ function initializeGame() {
     }
     resetGameBoard()
     computerChoosesWord() 
+    console.log(correctWord);
 }
 
 initializeGame()
-
 
 
 //         //if word not included in usedWords set correctWord = word
@@ -105,6 +104,7 @@ function computerChoosesWord() { //randomly select a word from library
         }
     }
     console.log(selectedWord);
+    correctWord = selectedWord
 }
 
 function resetGameBoard() {
@@ -127,13 +127,11 @@ function handleGuess(ltrGuess) {
         if(tempGuess.length < 5) {
             tempGuess.push(ltrGuess)
         } else {
-            console.log('invalid - display wiggle animation');
+            console.log('invalid - display wiggle animation') // -------------------------------------------------------------update this
         }
-
     } 
     else if(ltrGuess === 'backspace') { 
             tempGuess.pop()
-
     } else {
         submitGuess()
     }
@@ -141,8 +139,7 @@ function handleGuess(ltrGuess) {
 }
 
 function submitGuess() {
-    console.log('this guess is final')
-    
+    console.log('this guess is final')// ---------------------------------------------------------------------------------------update this
     gameBoard[turn].turn = turn//update game board for current turn with current guess
     gameBoard[turn].playerGuess = tempGuess
     evaluateGuess()    //evaluate current guess against correct word
@@ -154,7 +151,7 @@ function render() {
 
 function updateBoard() {
     for(let i = 0; i < tempGuess.length; i++) {
-        console.log(i)
+        // console.log(i)
         gameBoardTiles[i].textContent = `${tempGuess[i]}`
     } 
     if(tempGuess.length < 5){gameBoardTiles[4].textContent = ""}
@@ -182,8 +179,7 @@ function incrementTurn() {
 
 
 
-function EvaluateGuess() {
-    
+function evaluateGuess() {
     gameBoard[turn].playerGuess.forEach(function(letter, index){
         console.log(letter, index);
     })
@@ -192,17 +188,31 @@ function EvaluateGuess() {
 
     gameBoard[turn].playerGuess.forEach(function(letter, index) {
         if(letter === correctWordArr[index]) {
-            console.log('green')
+            console.log(index, 'green')
+            //showGreenTiles()
+            showResultsTiles(index, 'green')
         } else if(correctWordArr.includes(letter)) {
-            console.log('yellow');
+            console.log(index, 'yellow');
+            // showYellowTiles()
+            showResultsTiles(index, 'yellow')
         } else {
-            console.log('black');
+            console.log(index, 'black');
+            //showBlackTiles()
+            showResultsTiles(index, 'black')
         }
     })
 
 }
 
-EvaluateGuess()
+function showResultsTiles(idx, color) {
+    gameBoardTiles[idx].classList.add(color)
+    
+    console.log(gameBoardTiles[2]);
+    
+    // const tileID = `l[${turn}]-sq[${idx}]`
+    // const squareID = document.getElementById(`"l[${turn}]-sq[${idx}]"`)
+}
+
 
 /*-------------------------------- PsuedoCode --------------------------------*/
 

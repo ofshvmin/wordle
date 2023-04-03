@@ -8,7 +8,7 @@ body {
 
 section.board {
     display: grid;
-    background-color: blue;
+    background-color: whitesmoke;
     border: 3px solid black;
     padding: 10px;
     justify-content: center;
@@ -28,7 +28,35 @@ section.board {
     vertical-align: middle;
 }
 
+.green {
+    border: 3px solid rgb(39, 36, 38);
+    display: flex;
+    background-color: green;
+    font-size: 24px;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
+}
 
+.yellow {
+    border: 3px solid rgb(39, 36, 38);
+    display: flex;
+    background-color: yellow;
+    font-size: 24px;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
+}
+
+.black {
+    border: 3px solid rgb(39, 36, 38);
+    display: flex;
+    background-color: black;
+    font-size: 24px;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
+}
 
 section.keyboard {
     margin-top: 50px;
