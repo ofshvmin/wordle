@@ -1,12 +1,10 @@
 body {
-    
     background-color: aqua;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
-
 
 section.board {
     display: grid;
@@ -15,8 +13,8 @@ section.board {
     padding: 10px;
     justify-content: center;
     align-content: center;
-    grid-template-columns: repeat(5, 20vmin);
-    grid-template-rows: repeat(6, 20vmin);
+    grid-template-columns: repeat(5, 60px);
+    grid-template-rows: repeat(6, 60px);
     grid-gap: 1vmin;
 }
 
@@ -29,6 +27,8 @@ section.board {
     justify-content: center;
     vertical-align: middle;
 }
+
+
 
 section.keyboard {
     margin-top: 50px;

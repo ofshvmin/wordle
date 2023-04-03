@@ -4,11 +4,15 @@ import words from "../data/words.js"
 
 const library = [] //directory file with list of all 5-letter words in the english language
 const usedWords = []//array of words that have already been used
+const validKeys = ['a', 'b', 'c', 'd', 'e','f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'enter', 'backspace'] //do i need to convert the inputs to lowercase to capture capslock on?  is shift invalid? 
 
 const gameBoard = [
+    {turn: 0, playerGuess: [null, null, null, null, null]},
     {turn: 1, playerGuess: [null, null, null, null, null]},
-    {turn: 2, playerGuess: [null, null, null, null, null]}
-    
+    {turn: 2, playerGuess: [null, null, null, null, null]},
+    {turn: 3, playerGuess: [null, null, null, null, null]},
+    {turn: 4, playerGuess: [null, null, null, null, null]},
+    {turn: 5, playerGuess: [null, null, null, null, null]}
 ]
 
 const keyboard = [
@@ -40,6 +44,18 @@ keyEls.forEach(function(key) {
     key.addEventListener('click', handleClick)
 })
 
+document.addEventListener("keydown", handleKeyStroke)
+
+function handleKeyStroke(event) {
+        console.log(event.key);
+    // handleGuess(ltrGuess)
+    // render()
+    if(validKeys.includes(event.key)) {
+        console.log(event.key)
+    } else {
+        console.log('invalid key')
+    }
+}
 
 //letters on the user's physical keyboard will need an event listener
 //play again button will need an event listener
@@ -54,6 +70,10 @@ function initializeGame() {
     resetGameBoard()
     computerChoosesWord() 
 }
+
+initializeGame()
+
+
 
 //         //if word not included in usedWords set correctWord = word
 //     resetGameBoard()  //create a 5x6 board of blank squares, iterate through to set all values to null
@@ -88,9 +108,9 @@ function computerChoosesWord() { //randomly select a word from library
 }
 
 function resetGameBoard() {
-    playerGuess = [null, null, null, null, null]
+    gameBoard.playerGuess = [null, null, null, null, null]
     correctWord = ""
-    turn = 1
+    turn = 0
     hasWon = false
     hasLost = false
 }
@@ -127,37 +147,58 @@ function render() {
 }
 
 function updateBoard() {
-
-for(let i = 0; i < tempGuess.length; i++) {
-    console.log(i);
-    gameBoardTiles[i].textContent = `${tempGuess[i]}`
-}
-
-//what if we update the board based on the values of tempGuess??  could use the index to map to the tile
-
-    // tempGuess.forEach(function(letter) {
-    //     let idx = tempGuess.indexOf(letter)
-    //     console.log(idx)
-    //     gameBoardTiles[idx].textContent = `${letter}`
+    for(let i = 0; i < tempGuess.length; i++) {
+        console.log(i)
+        gameBoardTiles[i].textContent = `${tempGuess[i]}`
+    }
+    // gameBoardTiles.forEach(function(idx) {
+    //     if(!tempGuess[idx] === gameBoardTiles[idx]) gameBoardTiles[idx].textContent = ""
     // })
+
+    //what if we update the board based on the values of tempGuess??  could use the index to map to the tile
+
+        // tempGuess.forEach(function(letter) {
+        //     let idx = tempGuess.indexOf(letter)
+        //     console.log(idx)
+        //     gameBoardTiles[idx].textContent = `${letter}`
+        // })
+}
+
+function incrementTurn() {
+    turn++
 }
 
 
 
+function EvaluateGuess() {
+    
+    gameBoard[turn].playerGuess.forEach(function(letter, index){
+        console.log(letter, index);
+    })
+    let correctWordArr = correctWord.split('') 
+    console.log(correctWordArr);
 
-function evaluateGuess() {
-    console.log(gameBoard);
+    gameBoard[turn].playerGuess.forEach(function(letter, index) {
+        if(letter === correctWordArr[index]) {
+            console.log('green')
+        } else if(correctWordArr.includes(letter)) {
+            console.log('yellow');
+        } else {
+            console.log('black');
+        }
+    })
+
 }
+
+EvaluateGuess()
 
 /*-------------------------------- PsuedoCode --------------------------------*/
 
 //     Wordle
 
-// - if correctWord is not null, add correctWord value to the array usedWords
-// - a function will run to choose a 5 letter word at random from a dataset of words
-// - if word is not present in the usedWords array populate the word in the correctWord variable
 
-// user should be able to click on the onscreen keyboard or type using their physical keyboard
+
+// user should be able to type using their physical keyboard
 
 // the clicked or typed letter should populate the corresponding letter into the squares from left to right in the order they are selected
 //     - continued typing once the first 5 boxes in the first row are full should visually display to the user they have selected an invalid input (shake the tile)
