@@ -130,29 +130,20 @@ function handleClick(evt) {
     render()
 }
 
-
-
-
-
-
-
-
-
-
-
-
 function handleInputs(ltrGuess) {
     if(ltrGuess != 'backspace' && ltrGuess != 'enter'){
         if(tempGuess[turn].letters.length < 5) {
             tempGuess[turn].letters.push(ltrGuess)
-            console.log(tempGuess[turn].letters)
-            console.log(turn);
+            // console.log(tempGuess[turn].letters)
+            // console.log(turn)
         } else {
             console.log('invalid - display wiggle animation') // -------------------------------------------------------------update this
         }
     } 
     else if(ltrGuess === 'backspace') { 
             tempGuess[turn].letters.pop()
+            render()
+            console.log(tempGuess[turn].letters)
     } else {
         submitGuess()
     }
@@ -160,7 +151,6 @@ function handleInputs(ltrGuess) {
 }
 
 function submitGuess() {
-    console.log('this guess is final')// ---------------------------------------------------------------------------------------update this
     gameBoard[turn].turn = turn//update game board for current turn with current guess
     gameBoard[turn].playerGuess = tempGuess[turn].letters
     evaluateGuess()    //evaluate current guess against correct word
@@ -168,28 +158,89 @@ function submitGuess() {
 }
 
 function render() {
-    updateBoard()
+    updateBoard(tempGuess[turn].letters)
+}
+
+
+
+//-------------------------------------------------------------------------------------UPDATE BAORD FUNCTION -------------------------------------------------------------//
+
+function updateBoard(array) {
+    for(let i = 0; i < 5; i++) {
+        if(!array[i]) {
+            console.log('there is nothing in this place of the array!');
+            gameBoardTiles[5 * turn + i].textContent = ""
+        } else {
+            console.log(array[i]);
+            gameBoardTiles[5 * turn + i].textContent = array[i]
+        }
+    }
+    console.log(turn);
+console.dir(tempGuess);
+console.log(tempGuess[turn].letters);
 }
 
 
 
 
+// function testUndefined(array) {
+//     for(let i = 0; i < 5; i++) {
+//         if(!array[i]) {
+//             console.log('the element is not defined');
+//         } else {
+//             console.log(array[i]);
+//         }
+//     }
+// }
 
-function updateBoard() {
-    for(let i = 0; i < tempGuess[turn].letters.length; i++) {
-        const boardIdx = 5 * turn + i
-        console.log(boardIdx);
-        gameBoardTiles[boardIdx].textContent = `${tempGuess[turn].letters[i]}`
-    }
-            if(tempGuess[turn].letters.length < 5){gameBoardTiles[4].textContent = ""}
-            if(tempGuess[turn].letters.length < 4){gameBoardTiles[3].textContent = ""}
-            if(tempGuess[turn].letters.length < 3){gameBoardTiles[2].textContent = ""}
-            if(tempGuess[turn].letters.length < 2){gameBoardTiles[1].textContent = ""}
-            if(tempGuess[turn].letters.length < 1){gameBoardTiles[0].textContent = ""}
+// testUndefined(tempGuess[turn].letters)
+
+
+// for(let i = 0; i < tempGuess[turn].letters.length; i++) {
+//     const boardIdx = 5 * turn + i
+//     console.log(boardIdx);
+//     const inverseIdx = boardIdx - (5 * turn)
+
+//     console.log(tempGuess[turn].letters[i]);
+//     console.log(inverseIdx);
+//     gameBoardTiles[boardIdx].textContent = `${tempGuess[turn].letters[i]}`
+// }
+
+// for(let i = 0; i < gameBoardTiles.length; i++) {
+//     const boardIdx = 5 * turn + i
+//     console.log(boardIdx);
+//     const inverseIdx = boardIdx - (5 * turn)
+//     if(!inverseIdx) { 
+//         console.log('not value is present')
+//         gameBoardTiles[i].textContent = ""
+//     }
+// }
+
+
+
+    // gameBoardTiles.forEach(function(index) {
+    //         if(indexOf(index) > boardIdx) {
+    //             gameBoardTiles[index].textContent = ""
+            
+    //         console.log(index.indexOf);
+    //         console.log(boardIdx);
     
+    // }})
+// }
+// }
+        // if(tempGuess[turn].letters.length < 5){gameBoardTiles[boardIdx].textContent = ""}
+        // else if(tempGuess[turn].letters.length < 4){gameBoardTiles[boardIdx].textContent = ""}
+        // else if(tempGuess[turn].letters.length < 3){gameBoardTiles[boardIdx].textContent = ""}
+        // else if(tempGuess[turn].letters.length < 2){gameBoardTiles[boardIdx].textContent = ""}
+        // else if(tempGuess[turn].letters.length < 1){gameBoardTiles[boardIdx].textContent = ""} 
+
+
+    
+    //     console.log(boardIdx)
+    // }
 
         
-    }        
+    // }        
 
 
 
@@ -200,9 +251,9 @@ function updateBoard() {
 let testColumn = 3 //this will equal the index of its position in the array
 let testRow = 2 //this will equal turn
 let testSqrID = `#l${testRow}-sq${testColumn}`
-console.log(testSqrID);
-console.log(document.querySelector("#l2-sq3"));
-console.log(document.querySelector(testSqrID));
+// console.log(testSqrID);
+// console.log(document.querySelector("#l2-sq3"));
+// console.log(document.querySelector(testSqrID));
 
 // document.querySelector(testSqrID)
 
@@ -235,7 +286,9 @@ console.log(document.querySelector(testSqrID));
             // console.log(idx)
             // gameBoardTiles[idx].textContent = `${letter}`
             // })
-            
+
+
+//-------------------------------------------------------------------------------------UPDATE BAORD FUNCTION -------------------------------------------------------------//
 
 function incrementTurn() {
     turn++
