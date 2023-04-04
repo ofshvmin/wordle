@@ -44,6 +44,7 @@ const gameBoardTiles = document.querySelectorAll(".sqr")
 // playAgainBtn
 const keyEls = document.querySelectorAll(".key")
 
+const messageEl = document.getElementById("message")
 
 /*----------------------------- Event Listeners -----------------------------*/
 
@@ -154,6 +155,7 @@ function submitGuess() {
     gameBoard[turn].turn = turn//update game board for current turn with current guess
     gameBoard[turn].playerGuess = tempGuess[turn].letters
     evaluateGuess()    //evaluate current guess against correct word
+    checkForWin()
     incrementTurn()
 }
 
@@ -180,125 +182,22 @@ console.dir(tempGuess);
 console.log(tempGuess[turn].letters);
 }
 
-
-
-
-// function testUndefined(array) {
-//     for(let i = 0; i < 5; i++) {
-//         if(!array[i]) {
-//             console.log('the element is not defined');
-//         } else {
-//             console.log(array[i]);
-//         }
-//     }
-// }
-
-// testUndefined(tempGuess[turn].letters)
-
-
-// for(let i = 0; i < tempGuess[turn].letters.length; i++) {
-//     const boardIdx = 5 * turn + i
-//     console.log(boardIdx);
-//     const inverseIdx = boardIdx - (5 * turn)
-
-//     console.log(tempGuess[turn].letters[i]);
-//     console.log(inverseIdx);
-//     gameBoardTiles[boardIdx].textContent = `${tempGuess[turn].letters[i]}`
-// }
-
-// for(let i = 0; i < gameBoardTiles.length; i++) {
-//     const boardIdx = 5 * turn + i
-//     console.log(boardIdx);
-//     const inverseIdx = boardIdx - (5 * turn)
-//     if(!inverseIdx) { 
-//         console.log('not value is present')
-//         gameBoardTiles[i].textContent = ""
-//     }
-// }
-
-
-
-    // gameBoardTiles.forEach(function(index) {
-    //         if(indexOf(index) > boardIdx) {
-    //             gameBoardTiles[index].textContent = ""
-            
-    //         console.log(index.indexOf);
-    //         console.log(boardIdx);
-    
-    // }})
-// }
-// }
-        // if(tempGuess[turn].letters.length < 5){gameBoardTiles[boardIdx].textContent = ""}
-        // else if(tempGuess[turn].letters.length < 4){gameBoardTiles[boardIdx].textContent = ""}
-        // else if(tempGuess[turn].letters.length < 3){gameBoardTiles[boardIdx].textContent = ""}
-        // else if(tempGuess[turn].letters.length < 2){gameBoardTiles[boardIdx].textContent = ""}
-        // else if(tempGuess[turn].letters.length < 1){gameBoardTiles[boardIdx].textContent = ""} 
-
-
-    
-    //     console.log(boardIdx)
-    // }
-
-        
-    // }        
-
-
-
-
-
-
+//-------------------------------------------------------------------------------------DEAD CODE------------ -------------------------------------------------------------//
 
 let testColumn = 3 //this will equal the index of its position in the array
 let testRow = 2 //this will equal turn
 let testSqrID = `#l${testRow}-sq${testColumn}`
-// console.log(testSqrID);
-// console.log(document.querySelector("#l2-sq3"));
-// console.log(document.querySelector(testSqrID));
 
-// document.querySelector(testSqrID)
-
-
-
-//how do i move the temp guess down to the next row
-
-// if turn 0, 0*5 => 0 1 2 3 4
-// if turn 1, 1*5 => 5 6 7 8 9 
-// if turn 2, 2*5 => 10 11 12 13 14
-
-
-
-// tempGuess.forEach((index) => gameBoardTiles[index * turnIndex].textContent = `${tempGuess[index]}`)
-
-
-
-
-
-
-
-    // gameBoardTiles.forEach(function(idx) {
-    //     if(!tempGuess[idx] === gameBoardTiles[idx]) gameBoardTiles[idx].textContent = ""
-    // })
-
-    //what if we update the board based on the values of tempGuess??  could use the index to map to the tile
-
-        // tempGuess.forEach(function(letter) {
-        //     let idx = tempGuess.indexOf(letter)
-            // console.log(idx)
-            // gameBoardTiles[idx].textContent = `${letter}`
-            // })
-
-
+//-------------------------------------------------------------------------------------DEAD CODE------------ -------------------------------------------------------------//
 //-------------------------------------------------------------------------------------UPDATE BAORD FUNCTION -------------------------------------------------------------//
 
 function incrementTurn() {
     turn++
 }
 
-
-
 function evaluateGuess() {
     gameBoard[turn].playerGuess.forEach(function(letter, index){
-        console.log(letter, index);
+        // console.log(letter, index);
     })
     let correctWordArr = correctWord.split('') 
     console.log(correctWordArr);
@@ -328,6 +227,18 @@ function showResultsTiles(idx, color) {
     
     // const tileID = `l[${turn}]-sq[${idx}]`
     // const squareID = document.getElementById(`"l[${turn}]-sq[${idx}]"`)
+}
+
+
+function checkForWin() {
+    let playerWord = gameBoard[turn].playerGuess.join('')
+    if(playerWord === correctWord) {
+    console.log(playerWord);
+    console.log("You've won!")
+    messageEl.textContent = "You've won!  Congratulations!"
+    hasWon = true
+    }
+
 }
 
 
