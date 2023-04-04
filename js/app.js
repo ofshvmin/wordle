@@ -116,7 +116,6 @@ function computerChoosesWord() { //randomly select a word from library
     
     function handleClick(evt) {
         let ltrGuess = evt.target.id
-        // console.log(ltrGuess);
         handleInputs(ltrGuess)
         render()
     }
@@ -160,6 +159,7 @@ function submitGuess() {
     evaluateGuess()    //evaluate current guess against correct word
     checkForWin()
     incrementTurn()
+    checkForLoss()
 }
 
 function render() {
@@ -195,7 +195,9 @@ let testSqrID = `#l${testRow}-sq${testColumn}`
 //-------------------------------------------------------------------------------------UPDATE BAORD FUNCTION -------------------------------------------------------------//
 
 function incrementTurn() {
+    console.log(turn);
     turn++
+    console.log(turn);
 }
 
 function evaluateGuess() {
@@ -245,7 +247,18 @@ function checkForWin() {
     })
     document.removeEventListener("keydown", handleKeyStroke)
     }
+}
 
+function checkForLoss() {
+    if(turn > 5) {
+        console.log(`sadly, you've lost`);
+        hasLost = true
+        messageEl.textContent = `Sadly, not this time.  The correct word was ${correctWord}`
+        keyEls.forEach(function(key) {
+        key.removeEventListener('click', handleClick)
+    })
+    document.removeEventListener("keydown", handleKeyStroke)
+    }
 }
 
 
