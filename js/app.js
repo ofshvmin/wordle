@@ -237,9 +237,14 @@ function checkForWin() {
     console.log("You've won!")
     messageEl.textContent = "You've won!  Congratulations!"
     hasWon = true
+    keyEls.forEach(function(key) {
+        key.removeEventListener('click', handleClick)
+    })
+    document.removeEventListener("keydown", handleKeyStroke)
     }
 
 }
+
 
 
 /*-------------------------------- PsuedoCode --------------------------------*/
