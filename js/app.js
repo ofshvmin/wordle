@@ -54,16 +54,6 @@ keyEls.forEach(function(key) {
 
 document.addEventListener("keydown", handleKeyStroke)
 
-function handleKeyStroke(event) {
-        console.log(event.key);
-    // handleGuess(ltrGuess)
-    // render()
-    if(validKeys.includes(event.key)) {
-        console.log(event.key)
-    } else {
-        console.log('invalid key')
-    }
-}
 
 //letters on the user's physical keyboard will need an event listener
 //play again button will need an event listener
@@ -104,38 +94,51 @@ initializeGame()
 function computerChoosesWord() { //randomly select a word from library
     let selectedWord = null
     // function selectWord() {
-    //     slectedWord = words[Math.floor(Math.random() * words.length)]
-    // } 
-    while(!selectedWord) {
-        let potentialWord = words[Math.floor(Math.random() * words.length)]
-        if(usedWords.includes(potentialWord) === false) {
-            selectedWord = potentialWord
+        //     slectedWord = words[Math.floor(Math.random() * words.length)]
+        // } 
+        while(!selectedWord) {
+            let potentialWord = words[Math.floor(Math.random() * words.length)]
+            if(usedWords.includes(potentialWord) === false) {
+                selectedWord = potentialWord
+            }
+        }
+        console.log(selectedWord);
+        correctWord = selectedWord
+    }
+    
+    function resetGameBoard() {
+        gameBoard.playerGuess = [null, null, null, null, null]
+        correctWord = ""
+        turn = 0
+        hasWon = false
+        hasLost = false
+    }
+    
+    function handleClick(evt) {
+        let ltrGuess = evt.target.id
+        // console.log(ltrGuess);
+        handleInputs(ltrGuess)
+        render()
+    }
+    
+    function handleKeyStroke(event) {
+        let ltrGuess = event.key.toLowerCase()
+        if(validKeys.includes(ltrGuess)) {
+                console.log(ltrGuess);
+                handleInputs(ltrGuess)
+                render()
+        } else {
+            console.log('invalid key')
         }
     }
-    console.log(selectedWord);
-    correctWord = selectedWord
-}
-
-function resetGameBoard() {
-    gameBoard.playerGuess = [null, null, null, null, null]
-    correctWord = ""
-    turn = 0
-    hasWon = false
-    hasLost = false
-}
-
-function handleClick(evt) {
-    let ltrGuess = evt.target.id
-    // console.log(ltrGuess);
-    handleInputs(ltrGuess)
-    render()
-}
-
-function handleInputs(ltrGuess) {
-    if(ltrGuess != 'backspace' && ltrGuess != 'enter'){
-        if(tempGuess[turn].letters.length < 5) {
-            tempGuess[turn].letters.push(ltrGuess)
-            // console.log(tempGuess[turn].letters)
+    
+    
+    
+    function handleInputs(ltrGuess) {
+        if(ltrGuess != 'backspace' && ltrGuess != 'enter'){
+            if(tempGuess[turn].letters.length < 5) {
+                tempGuess[turn].letters.push(ltrGuess)
+                // console.log(tempGuess[turn].letters)
             // console.log(turn)
         } else {
             console.log('invalid - display wiggle animation') // -------------------------------------------------------------update this
