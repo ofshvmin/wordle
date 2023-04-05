@@ -17,8 +17,6 @@ const gameBoard = [
 
 
 
-
-
 let tempGuess = [
     {turn: 0, letters: []},
     {turn: 1, letters: []},
@@ -81,6 +79,7 @@ initializeGame()
 
 function resetGameBoard() {
     gameBoard.forEach((obj) => {obj.playerGuess = [null, null, null, null, null]})    
+    resetDisplay()
     console.dir(gameBoard);
     correctWord = ""
     turn = 0
@@ -167,9 +166,11 @@ function render() {
     //     updateBoard(gameBoard[turn])
     // }
 
-    if(tempGuess[turn]){
+
+    if(tempGuess[turn]){ 
     updateBoard(tempGuess[turn].letters)
     }
+
 }
 
 
@@ -263,6 +264,28 @@ function createResetBtn() {
     resetBtn.setAttribute("class", "resetBtn")
     resetEl.append(resetBtn)
 }
+
+
+function resetDisplay() {
+    gameBoardTiles.forEach((tile) => {
+        tile.textContent = ""
+    })
+    gameBoardTiles.forEach((tile) => {
+        tile.setAttribute("class", "sqr")
+    })
+    tempGuess.forEach((guess) => {
+        guess.letters = []
+    })
+    console.dir(gameBoardTiles)
+    console.dir(tempGuess)
+
+}
+
+
+
+// winningWordsa.forEach((w) => {
+//     if (w[sqrIdx]) console.log('Included!')
+//   })
 
 /*-------------------------------- PsuedoCode --------------------------------*/
 
