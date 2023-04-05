@@ -24,7 +24,6 @@ let tempGuess = [
     {turn: 5, letters: []}
 ]
 
-
 const keyboard = [
     { letter: "a", used: false, correctLetter: false, correctPlace: false },
     { letter: "b", used: false, correctLetter: false, correctPlace: false },
@@ -123,7 +122,6 @@ function computerChoosesWord() { //randomly select a word from library
     function handleKeyStroke(event) {
         let ltrGuess = event.key.toLowerCase()
         if(validKeys.includes(ltrGuess)) {
-                console.log(ltrGuess);
                 handleInputs(ltrGuess)
                 render()
         } else {
@@ -140,6 +138,7 @@ function computerChoosesWord() { //randomly select a word from library
                 // console.log(tempGuess[turn].letters)
             // console.log(turn)
         } else {
+            messageEl.textContent = "Guess can only be 5 letters long" 
             console.log('invalid - display wiggle animation') // -------------------------------------------------------------update this
         }
     } 
@@ -155,17 +154,24 @@ function computerChoosesWord() { //randomly select a word from library
 
 function submitGuess() {
     gameBoard[turn].turn = turn//update game board for current turn with current guess
+    
+    if(tempGuess[turn].letters.length < 5) {
+        messageEl.textContent = "Guess must be 5 letters long"
+        console.log(tempGuess[turn].letters.length)
+    } else {
     gameBoard[turn].playerGuess = tempGuess[turn].letters
     evaluateGuess()    //evaluate current guess against correct word
     checkForWin()
     incrementTurn()
     checkForLoss()
+    }
 }
 
 function render() {
+    if(tempGuess[turn]){
     updateBoard(tempGuess[turn].letters)
+    }
 }
-
 
 
 //-------------------------------------------------------------------------------------UPDATE BAORD FUNCTION -------------------------------------------------------------//
@@ -173,16 +179,11 @@ function render() {
 function updateBoard(array) {
     for(let i = 0; i < 5; i++) {
         if(!array[i]) {
-            console.log('there is nothing in this place of the array!');
             gameBoardTiles[5 * turn + i].textContent = ""
         } else {
-            console.log(array[i]);
             gameBoardTiles[5 * turn + i].textContent = array[i]
         }
     }
-    console.log(turn);
-console.dir(tempGuess);
-console.log(tempGuess[turn].letters);
 }
 
 //-------------------------------------------------------------------------------------DEAD CODE------------ -------------------------------------------------------------//
@@ -195,9 +196,7 @@ let testSqrID = `#l${testRow}-sq${testColumn}`
 //-------------------------------------------------------------------------------------UPDATE BAORD FUNCTION -------------------------------------------------------------//
 
 function incrementTurn() {
-    console.log(turn);
     turn++
-    console.log(turn);
 }
 
 function evaluateGuess() {
@@ -228,8 +227,8 @@ function evaluateGuess() {
 function showResultsTiles(idx, color) {
     gameBoardTiles[idx].classList.add(color)
     
-    console.log(gameBoardTiles[2]);
-    
+    console.dir(gameBoard)
+    console.dir(gameBoardTiles)
     // const tileID = `l[${turn}]-sq[${idx}]`
     // const squareID = document.getElementById(`"l[${turn}]-sq[${idx}]"`)
 }
