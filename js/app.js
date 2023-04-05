@@ -15,14 +15,6 @@ const gameBoard = [
     {turn: 5, playerGuess: [null, null, null, null, null]}
 ]
 
-function resetGameBoard() {
-    gameBoard.forEach((obj) => {obj.playerGuess = [null, null, null, null, null]})    
-    console.dir(gameBoard);
-    correctWord = ""
-    turn = 0
-    hasWon = false
-    hasLost = false
-}
 
 
 
@@ -85,27 +77,21 @@ function initializeGame() {
     console.log(correctWord);
     render()
 }
-
 initializeGame()
 
-
-//         //if word not included in usedWords set correctWord = word
-//     resetGameBoard()  //create a 5x6 board of blank squares, iterate through to set all values to null
-//     resetKeyboard()
-//     hasWon = false
-//     lasLost = false
-//     render()
-
-// //render keyboard of 26 letters, and enter key, and a backspace key
-
-// EvaluateGuess() //compares each letter to the letters in correctWord
-//     //if letter is present && index of letter === index of the letter in correctWord
-//     //if letter is present && index of letter !== index of the letter in correctWord
-//     //if letter is not present 
+function resetGameBoard() {
+    gameBoard.forEach((obj) => {obj.playerGuess = [null, null, null, null, null]})    
+    console.dir(gameBoard);
+    correctWord = ""
+    turn = 0
+    hasWon = false
+    hasLost = false
+}
 
 
 
-// initializeGame()
+
+
 
 function computerChoosesWord() { //randomly select a word from library
     let selectedWord = null
@@ -137,6 +123,7 @@ function computerChoosesWord() { //randomly select a word from library
         } else {
             console.log('invalid key')
         }
+        render()
     }
     
     
@@ -145,25 +132,21 @@ function computerChoosesWord() { //randomly select a word from library
         if(ltrGuess != 'backspace' && ltrGuess != 'enter'){
             if(tempGuess[turn].letters.length < 5) {
                 tempGuess[turn].letters.push(ltrGuess)
-                // console.log(tempGuess[turn].letters)
-            // console.log(turn)
+
+            } else {
+                messageEl.textContent = "Guess can only be 5 letters long" 
+                console.log('invalid - display wiggle animation') // -------------------------------------------------------------update this
+            }   
+        } 
+        else if(ltrGuess === 'backspace') { 
+                tempGuess[turn].letters.pop()
         } else {
-            messageEl.textContent = "Guess can only be 5 letters long" 
-            console.log('invalid - display wiggle animation') // -------------------------------------------------------------update this
+            submitGuess()
         }
-    } 
-    else if(ltrGuess === 'backspace') { 
-            tempGuess[turn].letters.pop()
-            render()
-            console.log(tempGuess[turn].letters)
-    } else {
-        submitGuess()
-    }
-    // console.log(tempGuess[turn].letters)
 }
 
 function submitGuess() {
-    gameBoard[turn].turn = turn//update game board for current turn with current guess
+    // gameBoard[turn].turn = turn//update game board for current turn with current guess
     
     if(tempGuess[turn].letters.length < 5) {
         messageEl.textContent = "Guess must be 5 letters long"
@@ -178,6 +161,12 @@ function submitGuess() {
 }
 
 function render() {
+    //show all prior guesses from the gameBoard
+    //show inputs in realtime
+    // if(gameBoard[turn].playerGuess) {
+    //     updateBoard(gameBoard[turn])
+    // }
+
     if(tempGuess[turn]){
     updateBoard(tempGuess[turn].letters)
     }
@@ -196,13 +185,6 @@ function updateBoard(array) {
     }
 }
 
-//-------------------------------------------------------------------------------------DEAD CODE------------ -------------------------------------------------------------//
-
-let testColumn = 3 //this will equal the index of its position in the array
-let testRow = 2 //this will equal turn
-let testSqrID = `#l${testRow}-sq${testColumn}`
-
-//-------------------------------------------------------------------------------------DEAD CODE------------ -------------------------------------------------------------//
 //-------------------------------------------------------------------------------------UPDATE BAORD FUNCTION -------------------------------------------------------------//
 
 function incrementTurn() {
@@ -210,25 +192,28 @@ function incrementTurn() {
 }
 
 function evaluateGuess() {
-    gameBoard[turn].playerGuess.forEach(function(letter, index){
-        // console.log(letter, index);
-    })
     let correctWordArr = correctWord.split('') 
-    console.log(correctWordArr);
+    console.log(correctWordArr)
+
+    // gameBoard[turn].playerGuess.forEach(function(letter, index){
+    //     // console.log(letter, index);
+    // })
 
     gameBoard[turn].playerGuess.forEach(function(letter, index) {
+        let tileIdx = 5 * turn + index
+        
         if(letter === correctWordArr[index]) {
             console.log(index, 'green')
             //showGreenTiles()
-            showResultsTiles(index, 'green')
+            showResultsTiles(tileIdx, 'green')
         } else if(correctWordArr.includes(letter)) {
             console.log(index, 'yellow');
             // showYellowTiles()
-            showResultsTiles(index, 'yellow')
+            showResultsTiles(tileIdx, 'yellow')
         } else {
             console.log(index, 'black');
             //showBlackTiles()
-            showResultsTiles(index, 'black')
+            showResultsTiles(tileIdx, 'black')
         }
     })
 
@@ -239,8 +224,7 @@ function showResultsTiles(idx, color) {
     
     console.dir(gameBoard)
     console.dir(gameBoardTiles)
-    // const tileID = `l[${turn}]-sq[${idx}]`
-    // const squareID = document.getElementById(`"l[${turn}]-sq[${idx}]"`)
+
 }
 
 
