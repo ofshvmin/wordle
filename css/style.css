@@ -1,20 +1,38 @@
 body {
-    background-color: rgb(116, 114, 113);
+    background-color: white;
+    font-family: 'Schibsted Grotesk', sans-serif;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
+    --body-grey: #e2e3eb;
+    --body-charcoal:  #747479;
+    --body-green: #83fad2;
+    --body-yellow: #f5f6c6;
+    --body-pink: #cd9ac6;
+    --body-blue: #69c4f5;
+    --body-purple:  #da96f2;
+
 }
+
+h1 {
+    display: flex;
+    flex-wrap: wrap;
+    height: 100px;
+    align-content: center;
+    margin: 0;
+}
+
 
 section.board {
     display: flex;
     flex-direction: column;
-    background-color: rgb(15, 7, 7);
-    border: 3px solid black;
+    /* background-color: var(--body-grey); */
+    /* border: 3px solid var(--body-grey); */
     padding: 6px;
     justify-content: center;
     align-content: center;
-
 }
 
 .row {
@@ -25,9 +43,10 @@ section.board {
 
 .sqr {
     display: flex;
-    border: 3px solid rgb(39, 36, 38);
+    border: 3px solid var(--body-grey);
     font-size: 42px;
-    color: brown;
+    font-weight: bold;
+    color: var(--body-charcoal);
     height: 60px;
     width: 60px;
     text-transform: uppercase;
@@ -40,9 +59,10 @@ section.board {
 
 
 .green {
-    border: 3px solid rgb(39, 36, 38);
+    border: 3px solid var(--body-green);;
     display: flex;
-    background-color: green;
+    color: black;
+    background-color: var(--body-green);
     font-size: 24px;
     align-items: center;
     justify-content: center;
@@ -50,9 +70,10 @@ section.board {
 }
 
 .yellow {
-    border: 3px solid rgb(39, 36, 38);
+    border: 3px solid var(--body-yellow);;
     display: flex;
-    background-color: yellow;
+    color: black;
+    background-color: var(--body-yellow);
     font-size: 24px;
     align-items: center;
     justify-content: center;
@@ -60,9 +81,10 @@ section.board {
 }
 
 .black {
-    border: 3px solid rgb(39, 36, 38);
+    border: 3px solid var(--body-charcoal);
     display: flex;
-    background-color: black;
+    background-color: var(--body-charcoal);
+    color: white;
     font-size: 24px;
     align-items: center;
     justify-content: center;
@@ -78,26 +100,36 @@ section.keyboard {
 .keyboard > div {
     display: flex;
     display: column;
+    min-width: 40px;
+
     align-items: center;
     justify-content: center;
     text-align: center;
 }
 
 .key {
-    border: 3px solid black;
-    padding: 10px;
+    padding: 12px 14px;
+    max-width: 100%;
+    margin: 2px;
+    color: black;
+    font-weight: bold;
+    border: 3px solid var(--body-grey);
+    background-color: var(--body-grey);
+    border-radius: 12px;
 }
 
 .top-row {
     display: flex;
 }
 
-/* .top-row {
-    display: inline;
-    height: 3em;
-    margin: 2em;
+#resetBtn {
+    background-color: var(--body-pink);
+    width: 120px;
+    height: 26px;
+    border-radius: 10px;
 }
 
-.middle-row {
-    display: inline-block;
-} */
+button {
+    background-color: var(--body-pink);
+    border: none;
+}
