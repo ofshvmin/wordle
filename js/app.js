@@ -260,7 +260,7 @@ function checkForLoss() {
 function createResetBtn() {
     const resetBtn = document.createElement('button')
     resetBtn.innerHTML = "<button>Play again!</button>"
-    resetBtn.setAttribute("id", "resetBtn")
+    resetBtn.setAttribute("class", "resetBtn")
     resetEl.append(resetBtn)
 }
 

@@ -122,14 +122,16 @@ section.keyboard {
     display: flex;
 }
 
-#resetBtn {
+.resetBtn {
     background-color: var(--body-pink);
-    width: 120px;
-    height: 26px;
+    width: 180px;
+    height: 36px;
     border-radius: 10px;
 }
 
 button {
     background-color: var(--body-pink);
     border: none;
+    color: white;
+    font-size: 24px;
 }

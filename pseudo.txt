@@ -1,5 +1,15 @@
 Wordle
 
+
+attibutions
+
+attribute Freepik for favicon
+<a href="https://www.flaticon.com/free-icons/easter" title="easter icons">Easter icons created by Freepik - Flaticon</a>
+
+
+
+
+
 On page load, display 
 - a 5x6 grid of blank black tiles
 - an onscreen keyboard with all 26 letters + enter + backspace keys in light grey 
