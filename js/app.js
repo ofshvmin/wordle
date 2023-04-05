@@ -15,6 +15,18 @@ const gameBoard = [
     {turn: 5, playerGuess: [null, null, null, null, null]}
 ]
 
+function resetGameBoard() {
+    gameBoard.forEach((obj) => {obj.playerGuess = [null, null, null, null, null]})    
+    console.dir(gameBoard);
+    correctWord = ""
+    turn = 0
+    hasWon = false
+    hasLost = false
+}
+
+
+
+
 let tempGuess = [
     {turn: 0, letters: []},
     {turn: 1, letters: []},
@@ -110,13 +122,6 @@ function computerChoosesWord() { //randomly select a word from library
         correctWord = selectedWord
     }
     
-    function resetGameBoard() {
-        gameBoard.playerGuess = [null, null, null, null, null]
-        correctWord = ""
-        turn = 0
-        hasWon = false
-        hasLost = false
-    }
     
     function handleClick(evt) {
         let ltrGuess = evt.target.id
