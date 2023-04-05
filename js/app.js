@@ -45,6 +45,9 @@ const keyEls = document.querySelectorAll(".key")
 
 const messageEl = document.getElementById("message")
 
+const resetEl = document.getElementById("resetBtn")
+
+
 /*----------------------------- Event Listeners -----------------------------*/
 
 keyEls.forEach(function(key) {
@@ -53,6 +56,7 @@ keyEls.forEach(function(key) {
 
 document.addEventListener("keydown", handleKeyStroke)
 
+resetBtn.addEventListener("click", initializeGame)
 
 //letters on the user's physical keyboard will need an event listener
 //play again button will need an event listener
@@ -67,6 +71,7 @@ function initializeGame() {
     resetGameBoard()
     computerChoosesWord() 
     console.log(correctWord);
+    render()
 }
 
 initializeGame()
@@ -245,6 +250,7 @@ function checkForWin() {
         key.removeEventListener('click', handleClick)
     })
     document.removeEventListener("keydown", handleKeyStroke)
+    createResetBtn()
     }
 }
 
@@ -257,10 +263,17 @@ function checkForLoss() {
         key.removeEventListener('click', handleClick)
     })
     document.removeEventListener("keydown", handleKeyStroke)
+    createResetBtn()    
     }
+    
 }
 
-
+function createResetBtn() {
+    const resetBtn = document.createElement('button')
+    resetBtn.innerHTML = "<button>Play again!</button>"
+    resetBtn.setAttribute("id", "resetBtn")
+    resetEl.append(resetBtn)
+}
 
 /*-------------------------------- PsuedoCode --------------------------------*/
 
