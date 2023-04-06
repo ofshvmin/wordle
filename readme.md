@@ -5,18 +5,20 @@
 
 # Background
 
-Wordle Easter edition is a re-creation of the popular web-based game Wordle in the theme of Easter, which was upcoming at the time of its initial release.  The original Wordle game was developed by Welsh software engineer Josh Wardle and was subsequently purchased by the New York Times.  
+Wordle Easter edition is an Easter-themed re-creation of the popular web-based game Wordle. The original Wordle game was developed by Welsh software engineer Josh Wardle and was later purchased by the New York Times.  
 
-Whereas the original Wordle has only one correct solution each day, Wordle: Easter Edition allows players to replay the game multiple times in a day.
+Whereas the New York Times version of Wordle has only one correct solution each day, Wordle: Easter Edition allows players to replay the game multiple times.
 
-# Gameplay
+# Getting Started
 
-The goal of the game is to guess the correct 5-letter word by submitting a guess then receiving hints that indicate whether any of the letters in the guessed word match those in the correct word.  
+The goal of the game is to guess the correct 5-letter word starting with a random guess and refining subsequent guesses based on the hints the game provides.
+The hints indicate whether any of the letters in the guessed word match those in the correct word.
 * Players have 6 attempts to guess the correct word. 
-* Tiles turn green if the guessed letter matches the letter in the same place within the correct word.  
-* Tiles turn yellow if the guessed letter in the tile is contained in the correct word but located in a different place within the word.  
+* Gameboard tiles turn green if the guessed letter matches the letter in the same place within the correct word.  
+* Gameboard tiles turn yellow if the guessed letter is contained in the correct word but located in a different place.
 * Black tiles indicate the letter is not present within the correct word whatsoever. 
 
+Planning materials can be found [here](./pseudo.txt).
 
 # [Play the game here](https://easter-wordle.netlify.app/)
 
@@ -28,11 +30,11 @@ The goal of the game is to guess the correct 5-letter word by submitting a guess
 
 
 # Attributions
-My sincere thanks to the creators who made their content available to be freely used by developers.
+My sincere thanks to the creators who have made their content available to be freely used by developers.
 
-Wordle: Easter Edition makes use of the font Schibsted Grotesk designed by Bakken & Bæck, Henrik Kongsvoll and is made available through Google fonts.  It can be accessed at [google fonts](https://fonts.google.com/specimen/Schibsted+Grotesk?query=schibsted+grotesk).
+Wordle: Easter Edition makes use of the font Schibsted Grotesk designed by Bakken & Bæck, Henrik Kongsvoll and made available through Google fonts.  It can be accessed at [google fonts](https://fonts.google.com/specimen/Schibsted+Grotesk?query=schibsted+grotesk).
 
-Wordle: Easter Edition uses a favicon made available by Freepik in their [easeter icons](https://www.flaticon.com/free-icons/easter) collection and can be found [here](https://www.flaticon.com/free-icon/easter_9870812?term=easter&page=1&position=49&origin=tag&related_id=9870812).
+Wordle: Easter Edition uses a favicon made available by Freepik in their [easter icons](https://www.flaticon.com/free-icons/easter) collection and can be found [here](https://www.flaticon.com/free-icon/easter_9870812?term=easter&page=1&position=49&origin=tag&related_id=9870812).
 
 
 # Ice Box

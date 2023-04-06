@@ -15,8 +15,6 @@ const gameBoard = [
     {turn: 5, playerGuess: [null, null, null, null, null]}
 ]
 
-
-
 let tempGuess = [
     {turn: 0, letters: []},
     {turn: 1, letters: []},
@@ -49,6 +47,7 @@ const messageEl = document.getElementById("message")
 
 const resetEl = document.getElementById("resetBtn")
 
+const resetBtn = document.createElement('button')
 
 /*----------------------------- Event Listeners -----------------------------*/
 
@@ -93,12 +92,21 @@ function resetGameBoard() {
     turn = 0
     hasWon = false
     hasLost = false
+    messageEl.textContent = ""
+    console.dir(resetBtn)
+    console.dir(document.querySelector("#resetBtn"))
+    resetEl.removeChild(resetBtn)
+    
     activateKeyboard()
 }
 
 
-
-
+// function createResetBtn() {
+//     const resetBtn = document.createElement('button')
+//     resetBtn.innerHTML = "<button>Play again!</button>"
+//     resetBtn.setAttribute("class", "resetBtn")
+//     resetEl.append(resetBtn)
+// }
 
 
 function computerChoosesWord() { //randomly select a word from library
@@ -205,10 +213,6 @@ function evaluateGuess() {
     let correctWordArr = correctWord.split('') 
     console.log(correctWordArr)
 
-    // gameBoard[turn].playerGuess.forEach(function(letter, index){
-    //     // console.log(letter, index);
-    // })
-
     gameBoard[turn].playerGuess.forEach(function(letter, index) {
         let tileIdx = 5 * turn + index
         
@@ -268,7 +272,6 @@ function checkForLoss() {
 }
 
 function createResetBtn() {
-    const resetBtn = document.createElement('button')
     resetBtn.innerHTML = "<button>Play again!</button>"
     resetBtn.setAttribute("class", "resetBtn")
     resetEl.append(resetBtn)
