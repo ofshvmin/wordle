@@ -1,15 +1,7 @@
-- **Screenshot:** A screenshot of your game.
-- **Your game’s title**: A description of your game. Background info about why you chose the game is a nice touch.
-- **Getting Started**: Include a link to your deployed game and any instructions you deem important.
-- ************************Attributions************************: Include links to any external resources (such as libraries or assets) you used to develop your application.
-- **Technologies Used**: List of the technologies used, for example: JavaScript, HTML, CSS, etc.
-- **Next Steps**: Planned future enhancements (icebox items).
-- Your **`README.md`** file must be grammatically correct and free of spelling errors.
-
 
 # Wordle: Easter edition
 
-![screenshot](./assets.wordle-easter.png)
+![screenshot](./assets/easter-favicon.png)
 
 
 ## Play the game [here]("https://easter-wordle.netlify.app/")
@@ -35,15 +27,9 @@ Whereas the original Wordle has only one correct solution each day, Wordle: East
 * Git
 
 
-# Credits
+## Credits
 
-This game makes use of the font Schibsted Grotesk designed by Bakken & Bæck, Henrik Kongsvoll and made available through google fonts.  It can be accessed at [google fonts]("https://fonts.google.com/specimen/Schibsted+Grotesk?query=schibsted+grotesk").
-
-
-Wordle: Easter Edition uses a favicon made available by Freepik in their [easeter icons]("https://www.flaticon.com/free-icons/easter"") collection and can be found [here]("https://www.flaticon.com/free-icon/easter_9870812?term=easter&page=1&position=49&origin=tag&related_id=9870812").
-
-<!-- Wordle: Easter Edition makes use of Animate.css created by Daniel Eden, Elton Mesquita, and Waren Gonzaga. Animate.css can be found here. -->
-
+Check out the [attributions]("./attributions.md")
 
 ## Ice Box
 - Optimize onscreen keyboard for mobile devices
@@ -52,4 +38,14 @@ Wordle: Easter Edition uses a favicon made available by Freepik in their [easete
 - Animate tiles as the reveal correct/incorrect letters
 - Animate a wiggle of the row when a user selects invalid input
 - Add themse for other holidays
+
+
+- **Screenshot:** A screenshot of your game.
+- **Your game’s title**: A description of your game. Background info about why you chose the game is a nice touch.
+- **Getting Started**: Include a link to your deployed game and any instructions you deem important.
+- ************************Attributions************************: Include links to any external resources (such as libraries or assets) you used to develop your application.
+- **Technologies Used**: List of the technologies used, for example: JavaScript, HTML, CSS, etc.
+- **Next Steps**: Planned future enhancements (icebox items).
+- Your **`README.md`** file must be grammatically correct and free of spelling errors.
+
 - Dark mode
