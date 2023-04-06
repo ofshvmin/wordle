@@ -38,7 +38,6 @@ section.board {
 .row {
     display: flex;
     justify-content: space-around;
-    
 }
 
 .sqr {
@@ -53,8 +52,6 @@ section.board {
     align-items: center;
     justify-content: center;
     margin: 4px;
-    
-    
 }
 
 
@@ -134,4 +131,58 @@ button {
     border: none;
     color: white;
     font-size: 24px;
+}
+
+@media (max-width: 500px) {
+
+    h1 {
+        display: flex;
+        flex-wrap: wrap;
+        height: 60px;
+        align-content: center;
+        margin: 0;
+    }
+    h2 {
+        margin-top: 0;
+        margin-bottom: 10px;
+        font-size: 20px;
+    }
+
+
+    .sqr {
+        font-size: 24px;
+        font-weight: bold;
+        height: 30px;
+        width: 30px;
+        margin: 2px;
+    }
+
+    section.keyboard {
+        margin-top: 14px;
+        align-items: center;
+        justify-content: center;
+    }
+    .key {
+        padding: 6px 7px;
+        max-width: 100%;
+        margin: 1px;
+        color: black;
+        font-weight: bold;
+        border: 3px solid var(--body-grey);
+        background-color: var(--body-grey);
+        border-radius: 12px;
+    }
+    .resetBtn {
+        background-color: var(--body-pink);
+        width: 100px;
+        height: 26px;
+        border-radius: 10px;
+    }
+    
+    button {
+        background-color: var(--body-pink);
+        border: none;
+        color: white;
+        font-size: 14px;
+    }
 }
