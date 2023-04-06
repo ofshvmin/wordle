@@ -57,7 +57,7 @@ keyEls.forEach(function(key) {
 
 document.addEventListener("keydown", handleKeyStroke)
 
-resetBtn.addEventListener("click", initializeGame)
+resetBtn.addEventListener("click", pressReset)
 
 //letters on the user's physical keyboard will need an event listener
 //play again button will need an event listener
@@ -93,11 +93,12 @@ function resetGameBoard() {
     hasWon = false
     hasLost = false
     messageEl.textContent = ""
-    console.dir(resetBtn)
-    console.dir(document.querySelector("#resetBtn"))
-    resetEl.removeChild(resetBtn)
-    
     activateKeyboard()
+}
+
+function pressReset() {
+    resetEl.removeChild(resetBtn)
+    initializeGame()
 }
 
 
