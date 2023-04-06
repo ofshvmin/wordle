@@ -1,7 +1,7 @@
 
 # Wordle: Easter edition
 
-![screenshot](./assets/easter-favicon.png)
+![screenshot](./assets/wordle-easter.png)
 
 
 ## Play the game [here]("https://easter-wordle.netlify.app/")
@@ -29,7 +29,7 @@ Whereas the original Wordle has only one correct solution each day, Wordle: East
 
 ## Credits
 
-Check out the [attributions]("./attributions.md")
+Check out the [attributions](attributions.md)
 
 ## Ice Box
 - Optimize onscreen keyboard for mobile devices
