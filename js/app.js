@@ -66,6 +66,14 @@ resetBtn.addEventListener("click", initializeGame)
 /*-------------------------------- Functions --------------------------------*/
 
 
+function activateKeyboard() {
+    keyEls.forEach(function(key) {
+        key.addEventListener('click', handleClick)
+    })
+    document.addEventListener("keydown", handleKeyStroke)
+}
+
+
 function initializeGame() {
     if(correctWord) {
         usedWords.push(correctWord)
@@ -85,6 +93,7 @@ function resetGameBoard() {
     turn = 0
     hasWon = false
     hasLost = false
+    activateKeyboard()
 }
 
 
