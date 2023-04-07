@@ -217,19 +217,22 @@ function evaluateGuess() {
     gameBoard[turn].playerGuess.forEach(function(letter, index) {
         let tileIdx = 5 * turn + index
         
-        setTimeout(() => {
+        setTimeout(function() {
         if(letter === correctWordArr[index]) {
             console.log(index, 'green')
             //showGreenTiles()
             showResultsTiles(tileIdx, 'green')
+            updateKeyboard(letter, 'green')
         } else if(correctWordArr.includes(letter)) {
             console.log(index, 'yellow');
             // showYellowTiles()
             showResultsTiles(tileIdx, 'yellow')
+            updateKeyboard(letter, 'yellow')
         } else {
             console.log(index, 'black');
             //showBlackTiles()
             showResultsTiles(tileIdx, 'black')
+            updateKeyboard(letter, 'black')
         }
     }, 250 * index)
     })
@@ -275,9 +278,12 @@ function checkForLoss() {
 }
 
 function createResetBtn() {
+    setTimeout(function() {
     resetBtn.innerHTML = "<button>Play again!</button>"
     resetBtn.setAttribute("class", "resetBtn")
     resetEl.append(resetBtn)
+    }, 2000)
+
 }
 
 
@@ -296,45 +302,13 @@ function resetDisplay() {
 
 }
 
-
-
-// winningWordsa.forEach((w) => {
-//     if (w[sqrIdx]) console.log('Included!')
-//   })
-
-/*-------------------------------- PsuedoCode --------------------------------*/
-
-//     Wordle
-
-
-
-// user should be able to type using their physical keyboard
-
-// the clicked or typed letter should populate the corresponding letter into the squares from left to right in the order they are selected
-//     - continued typing once the first 5 boxes in the first row are full should visually display to the user they have selected an invalid input (shake the tile)
-//     - the user should be able to delete their inputs using the backspace key or button  
-//     - the user should be able to submit their response using the enter key or button
-
-// once the user submits a guess the gameboard and keyboard should display whether or not the guess was correct
-//     Gameboard:
-//         correct letters in the correct tile should display in green
-//         correct letters in the incorrect tile should display in yellow
-//         incorrect letters should display in dark grey
-//     keyboard:
-//         keys with letters corresponding to a correct letter on the correct tile of the gameboard should update to green
-//         keys with letters corresponding to a correct letter on the incorrect tile of the gameboard should update to yellow  
-//         keys with letters corresponding to an incorrect letter should update to dark grey
-
-// turn should increment up by 1
-// check to see if the player has won
-//     player has won if all letters in a single guess are present in the correct word and the sequence of letters matches
-// check to see if the player has lost
-//     player has lost if turn > 6 and they have not won
-// if neither player won nor lost, a new turn should proceed with resonses proceeding on the next line of the grid
-
-// Once player has won or lost a button will appear with text "play again"
-//     if clicked, the gameboard and keyboard should reset
-//     the correct word will be added to the array of usedWords 
-
-
-
+function updateKeyboard(letter, color) {
+    let keyEl = document.getElementById(letter)
+    
+    console.log(keyEl.classList.toString());
+    if(keyEl.classList.toString().includes('green')) 
+        return
+    else {
+        keyEl.classList.add(color)
+    }
+}

@@ -71,38 +71,6 @@ section.board {
     }
 }
 
-.green {
-    border: 3px solid var(--body-green);;
-    display: flex;
-    color: black;
-    background-color: var(--body-green);
-    font-size: 24px;
-    align-items: center;
-    justify-content: center;
-    vertical-align: middle;
-}
-
-.yellow {
-    border: 3px solid var(--body-yellow);;
-    display: flex;
-    color: black;
-    background-color: var(--body-yellow);
-    font-size: 24px;
-    align-items: center;
-    justify-content: center;
-    vertical-align: middle;
-}
-
-.black {
-    border: 3px solid var(--body-charcoal);
-    display: flex;
-    background-color: var(--body-charcoal);
-    color: white;
-    font-size: 24px;
-    align-items: center;
-    justify-content: center;
-    vertical-align: middle;
-}
 
 #resetBtn {
     height: 60px;
@@ -140,7 +108,7 @@ section.keyboard {
     display: flex;
     display: column;
     min-width: 40px;
-
+    
     align-items: center;
     justify-content: center;
     text-align: center;
@@ -157,13 +125,29 @@ section.keyboard {
     border-radius: 12px;
 }
 
+.green {
+    border: 3px solid var(--body-green);;
+    background-color: var(--body-green);
+}
+
+.yellow {
+    border: 3px solid var(--body-yellow);;
+    background-color: var(--body-yellow);
+}
+
+.black {
+    border: 3px solid var(--body-charcoal);
+    background-color: var(--body-charcoal);
+    color: white;
+}
+
 .top-row {
     display: flex;
 }
 
 
 @media (max-width: 500px) {
-
+    
     h1 {
         display: flex;
         flex-wrap: wrap;
