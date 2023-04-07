@@ -71,6 +71,7 @@ function resetGameBoard() {
 
 function pressReset() {
     resetEl.removeChild(resetBtn)
+    confetti.stop()
     initializeGame()
 }
 
@@ -177,6 +178,7 @@ function checkForWin() {
     let playerWord = gameBoard[turn].playerGuess.join('')
     if(playerWord === correctWord) {
     messageEl.textContent = "You've won!  Congratulations!"
+    confetti.start()
     hasWon = true
     keyEls.forEach((key) => {
         key.removeEventListener('click', handleClick)
