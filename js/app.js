@@ -2,9 +2,9 @@ import words from "../data/words.js"
 
 /*-------------------------------- Constants --------------------------------*/
 
-const library = [] //directory file with list of all 5-letter words in the english language
+const library = [] //directory file with list of all 5-letter words
 const usedWords = []//array of words that have already been used
-const validKeys = ['a', 'b', 'c', 'd', 'e','f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'enter', 'backspace'] //do i need to convert the inputs to lowercase to capture capslock on?  is shift invalid? 
+const validKeys = ['a', 'b', 'c', 'd', 'e','f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'enter', 'backspace'] 
 
 const gameBoard = [
     {turn: 0, playerGuess: []},
@@ -32,9 +32,7 @@ const resetBtn = document.createElement('button')
 
 /*----------------------------- Event Listeners -----------------------------*/
 
-keyEls.forEach(function(key) {
-    key.addEventListener('click', handleClick)
-})
+keyEls.forEach((key) => {key.addEventListener('click', handleClick)})
 
 document.addEventListener("keydown", handleKeyStroke)
 
@@ -48,13 +46,13 @@ function initializeGame() {
     }
     resetGameBoard()
     computerChoosesWord() 
-    console.log(correctWord);
+    console.log(correctWord) // <---- this is left intentionally to ensure i can meet win condition for the presentation
     render()
 }
 initializeGame()
 
 function activateKeyboard() {
-    keyEls.forEach(function(key) {
+    keyEls.forEach((key) => {
         key.addEventListener('click', handleClick)
     })
     document.addEventListener("keydown", handleKeyStroke)
@@ -78,7 +76,6 @@ function pressReset() {
 
 function computerChoosesWord() { //randomly select a word from library
     let selectedWord = null
-
     while(!selectedWord) {  //ensure randomly selected word has not been used yet
         let potentialWord = words[Math.floor(Math.random() * words.length)]
         if(usedWords.includes(potentialWord) === false) {
@@ -87,13 +84,12 @@ function computerChoosesWord() { //randomly select a word from library
     }
     correctWord = selectedWord
 }
-    
-    
-    function handleClick(evt) {
-        let ltrGuess = evt.target.id
-        handleInputs(ltrGuess)
-        render()
-    }
+
+function handleClick(evt) {
+    let ltrGuess = evt.target.id
+    handleInputs(ltrGuess)
+    render()
+}
     
 function handleKeyStroke(event) {
     let ltrGuess = event.key.toLowerCase()
@@ -101,7 +97,7 @@ function handleKeyStroke(event) {
             handleInputs(ltrGuess)
             render()
     } else {
-        console.log('invalid key')
+    messageEl.textContent = "That's not a valid key"
     }
     render()
 }
@@ -122,7 +118,6 @@ function handleInputs(ltrGuess) {
 }
 
 function submitGuess() {
-        
     if(gameBoard[turn].playerGuess.length < 5) {
         messageEl.textContent = "Guess must be 5 letters long"
     } else {
@@ -134,11 +129,9 @@ function submitGuess() {
 }
 
 function render() {
-
     if(gameBoard[turn].playerGuess){ 
     updateBoard(gameBoard[turn].playerGuess)
     }
-
 }
 
 function updateBoard(array) {
@@ -157,25 +150,16 @@ function incrementTurn() {
 
 function evaluateGuess() {
     let correctWordArr = correctWord.split('') 
-    console.log(correctWordArr)
-
-    gameBoard[turn].playerGuess.forEach(function(letter, index) {
+    gameBoard[turn].playerGuess.forEach((letter, index) => {
         let tileIdx = 5 * turn + index
-        
-        setTimeout(function() {
+        setTimeout(() => {
         if(letter === correctWordArr[index]) {
-            console.log(index, 'green')
-            //showGreenTiles()
             showResultsTiles(tileIdx, 'green')
             updateKeyboard(letter, 'green')
         } else if(correctWordArr.includes(letter)) {
-            console.log(index, 'yellow');
-            // showYellowTiles()
             showResultsTiles(tileIdx, 'yellow')
             updateKeyboard(letter, 'yellow')
         } else {
-            console.log(index, 'black');
-            //showBlackTiles()
             showResultsTiles(tileIdx, 'black')
             updateKeyboard(letter, 'black')
         }
@@ -186,21 +170,15 @@ function evaluateGuess() {
 function showResultsTiles(idx, color) {
     gameBoardTiles[idx].classList.add(color)
     gameBoardTiles[idx].classList.add('flip')
-    
-    console.dir(gameBoard)
-    console.dir(gameBoardTiles)
-
 }
 
 
 function checkForWin() {
     let playerWord = gameBoard[turn].playerGuess.join('')
     if(playerWord === correctWord) {
-    console.log(playerWord);
-    console.log("You've won!")
     messageEl.textContent = "You've won!  Congratulations!"
     hasWon = true
-    keyEls.forEach(function(key) {
+    keyEls.forEach((key) => {
         key.removeEventListener('click', handleClick)
     })
     document.removeEventListener("keydown", handleKeyStroke)
@@ -210,10 +188,9 @@ function checkForWin() {
 
 function checkForLoss() {
     if(turn > 5) {
-        console.log(`sadly, you've lost`);
         hasLost = true
-        messageEl.textContent = `Sadly, not this time.  The correct word was ${correctWord}`
-        keyEls.forEach(function(key) {
+        messageEl.textContent = `You didn't quite get it this time.  The correct word was ${correctWord}`
+        keyEls.forEach((key) => {
         key.removeEventListener('click', handleClick)
     })
     document.removeEventListener("keydown", handleKeyStroke)
@@ -223,13 +200,12 @@ function checkForLoss() {
 }
 
 function createResetBtn() {
-    setTimeout(function() {
+    setTimeout(() => {
     resetBtn.innerHTML = "<button>Play again!</button>"
     resetBtn.setAttribute("class", "resetBtn")
     resetEl.append(resetBtn)
     }, 2000)
 }
-
 
 function resetDisplay() {
     gameBoardTiles.forEach((tile) => {
@@ -245,8 +221,6 @@ function resetDisplay() {
 
 function updateKeyboard(letter, color) {
     let keyEl = document.getElementById(letter)
-    
-    console.log(keyEl.classList.toString());
     if(keyEl.classList.toString().includes('green')) 
         return
     else {
