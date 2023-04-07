@@ -217,6 +217,7 @@ function evaluateGuess() {
     gameBoard[turn].playerGuess.forEach(function(letter, index) {
         let tileIdx = 5 * turn + index
         
+        setTimeout(() => {
         if(letter === correctWordArr[index]) {
             console.log(index, 'green')
             //showGreenTiles()
@@ -230,12 +231,13 @@ function evaluateGuess() {
             //showBlackTiles()
             showResultsTiles(tileIdx, 'black')
         }
+    }, 250 * index)
     })
-
 }
 
 function showResultsTiles(idx, color) {
     gameBoardTiles[idx].classList.add(color)
+    gameBoardTiles[idx].classList.add('flip')
     
     console.dir(gameBoard)
     console.dir(gameBoardTiles)
