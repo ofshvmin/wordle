@@ -12,22 +12,54 @@ body {
     --body-yellow: #f5f6c6;
     --body-pink: #cd9ac6;
     --body-blue: #69c4f5;
-    --body-purple:  #da96f2;
-
+    --body-purple:  #cb5ad7;
+    --bvody-dark-green: #618e4a;
 }
+
+
+section#top {
+    display: flex;
+    justify-items: center;
+    align-items: center;
+    background: lineat-gradient(0,0,0,.01%);
+    background-image: url(../assets/grass-copy.png);
+    background-size: 100%;
+}
+
+section#top > div {
+    font-size: 30px;
+    padding: 20px;
+}
+
+div.center {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+}
+
 
 h1 {
     display: flex;
     flex-wrap: wrap;
+    color: var(--body-purple);
     height: 100px;
-    font-size: 60px;
+    font-size: 80px;
     align-content: center;
+    justify-content: center;
     margin: 0;
 }
 
 h2 {
+    display: flex;
     margin: 0;
     height: 60px;
+    width: 400px;
+    justify-content: center;
+    align-items: center;
+    color: var(--bvody-dark-green);
+    font-size: 24px;
+    font-weight: bold;
 }
 
 

@@ -36,6 +36,7 @@ Wordle: Easter Edition makes use of the font Schibsted Grotesk designed by Bakke
 
 Wordle: Easter Edition uses a favicon made available by Freepik in their [easter icons](https://www.flaticon.com/free-icons/easter) collection and can be found [here](https://www.flaticon.com/free-icon/easter_9870812?term=easter&page=1&position=49&origin=tag&related_id=9870812).
 
+Confetti was made possible by General Assembly.
 
 # Ice Box
 - Optimize the on-screen keyboard for mobile devices
