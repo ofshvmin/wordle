@@ -7,27 +7,12 @@ const usedWords = []//array of words that have already been used
 const validKeys = ['a', 'b', 'c', 'd', 'e','f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'enter', 'backspace'] //do i need to convert the inputs to lowercase to capture capslock on?  is shift invalid? 
 
 const gameBoard = [
-    {turn: 0, playerGuess: [null, null, null, null, null]},
-    {turn: 1, playerGuess: [null, null, null, null, null]},
-    {turn: 2, playerGuess: [null, null, null, null, null]},
-    {turn: 3, playerGuess: [null, null, null, null, null]},
-    {turn: 4, playerGuess: [null, null, null, null, null]},
-    {turn: 5, playerGuess: [null, null, null, null, null]}
-]
-
-let tempGuess = [
-    {turn: 0, letters: []},
-    {turn: 1, letters: []},
-    {turn: 2, letters: []},
-    {turn: 3, letters: []},
-    {turn: 4, letters: []},
-    {turn: 5, letters: []}
-]
-
-const keyboard = [
-    { letter: "a", used: false, correctLetter: false, correctPlace: false },
-    { letter: "b", used: false, correctLetter: false, correctPlace: false },
-    { letter: "c", used: false, correctLetter: false, correctPlace: false },
+    {turn: 0, playerGuess: []},
+    {turn: 1, playerGuess: []},
+    {turn: 2, playerGuess: []},
+    {turn: 3, playerGuess: []},
+    {turn: 4, playerGuess: []},
+    {turn: 5, playerGuess: []}
 ]
 
 /*-------------------------------- Variables --------------------------------*/
@@ -40,13 +25,9 @@ let hasLost = false
 /*------------------------ Cached Element References ------------------------*/
 
 const gameBoardTiles = document.querySelectorAll(".sqr")
-// playAgainBtn
 const keyEls = document.querySelectorAll(".key")
-
 const messageEl = document.getElementById("message")
-
 const resetEl = document.getElementById("resetBtn")
-
 const resetBtn = document.createElement('button')
 
 /*----------------------------- Event Listeners -----------------------------*/
@@ -59,19 +40,7 @@ document.addEventListener("keydown", handleKeyStroke)
 
 resetBtn.addEventListener("click", pressReset)
 
-//letters on the user's physical keyboard will need an event listener
-//play again button will need an event listener
-
 /*-------------------------------- Functions --------------------------------*/
-
-
-function activateKeyboard() {
-    keyEls.forEach(function(key) {
-        key.addEventListener('click', handleClick)
-    })
-    document.addEventListener("keydown", handleKeyStroke)
-}
-
 
 function initializeGame() {
     if(correctWord) {
@@ -84,10 +53,16 @@ function initializeGame() {
 }
 initializeGame()
 
+function activateKeyboard() {
+    keyEls.forEach(function(key) {
+        key.addEventListener('click', handleClick)
+    })
+    document.addEventListener("keydown", handleKeyStroke)
+}
+
 function resetGameBoard() {
-    gameBoard.forEach((obj) => {obj.playerGuess = [null, null, null, null, null]})    
+    gameBoard.forEach((obj) => {obj.playerGuess = []})    
     resetDisplay()
-    console.dir(gameBoard);
     correctWord = ""
     turn = 0
     hasWon = false
@@ -101,29 +76,17 @@ function pressReset() {
     initializeGame()
 }
 
-
-// function createResetBtn() {
-//     const resetBtn = document.createElement('button')
-//     resetBtn.innerHTML = "<button>Play again!</button>"
-//     resetBtn.setAttribute("class", "resetBtn")
-//     resetEl.append(resetBtn)
-// }
-
-
 function computerChoosesWord() { //randomly select a word from library
     let selectedWord = null
-    // function selectWord() {
-        //     slectedWord = words[Math.floor(Math.random() * words.length)]
-        // } 
-        while(!selectedWord) {
-            let potentialWord = words[Math.floor(Math.random() * words.length)]
-            if(usedWords.includes(potentialWord) === false) {
-                selectedWord = potentialWord
-            }
+
+    while(!selectedWord) {  //ensure randomly selected word has not been used yet
+        let potentialWord = words[Math.floor(Math.random() * words.length)]
+        if(usedWords.includes(potentialWord) === false) {
+            selectedWord = potentialWord
         }
-        console.log(selectedWord);
-        correctWord = selectedWord
     }
+    correctWord = selectedWord
+}
     
     
     function handleClick(evt) {
@@ -132,45 +95,38 @@ function computerChoosesWord() { //randomly select a word from library
         render()
     }
     
-    function handleKeyStroke(event) {
-        let ltrGuess = event.key.toLowerCase()
-        if(validKeys.includes(ltrGuess)) {
-                handleInputs(ltrGuess)
-                render()
-        } else {
-            console.log('invalid key')
-        }
-        render()
+function handleKeyStroke(event) {
+    let ltrGuess = event.key.toLowerCase()
+    if(validKeys.includes(ltrGuess)) {
+            handleInputs(ltrGuess)
+            render()
+    } else {
+        console.log('invalid key')
     }
-    
-    
-    
-    function handleInputs(ltrGuess) {
-        if(ltrGuess != 'backspace' && ltrGuess != 'enter'){
-            if(tempGuess[turn].letters.length < 5) {
-                tempGuess[turn].letters.push(ltrGuess)
+    render()
+}
 
-            } else {
-                messageEl.textContent = "Guess can only be 5 letters long" 
-                console.log('invalid - display wiggle animation') // -------------------------------------------------------------update this
-            }   
-        } 
-        else if(ltrGuess === 'backspace') { 
-                tempGuess[turn].letters.pop()
+function handleInputs(ltrGuess) {
+    if(ltrGuess != 'backspace' && ltrGuess != 'enter'){
+        if(gameBoard[turn].playerGuess.length < 5) {
+            gameBoard[turn].playerGuess.push(ltrGuess)
         } else {
-            submitGuess()
-        }
+            messageEl.textContent = "Guess can only be 5 letters long" // --------------update this to display wiggle animation as a day 2 feature 
+        }   
+    } 
+    else if(ltrGuess === 'backspace') { 
+        gameBoard[turn].playerGuess.pop()
+    } else {
+        submitGuess()
+    }
 }
 
 function submitGuess() {
-    // gameBoard[turn].turn = turn//update game board for current turn with current guess
-    
-    if(tempGuess[turn].letters.length < 5) {
+        
+    if(gameBoard[turn].playerGuess.length < 5) {
         messageEl.textContent = "Guess must be 5 letters long"
-        console.log(tempGuess[turn].letters.length)
     } else {
-    gameBoard[turn].playerGuess = tempGuess[turn].letters
-    evaluateGuess()    //evaluate current guess against correct word
+    evaluateGuess()
     checkForWin()
     incrementTurn()
     checkForLoss()
@@ -178,21 +134,12 @@ function submitGuess() {
 }
 
 function render() {
-    //show all prior guesses from the gameBoard
-    //show inputs in realtime
-    // if(gameBoard[turn].playerGuess) {
-    //     updateBoard(gameBoard[turn])
-    // }
 
-
-    if(tempGuess[turn]){ 
-    updateBoard(tempGuess[turn].letters)
+    if(gameBoard[turn].playerGuess){ 
+    updateBoard(gameBoard[turn].playerGuess)
     }
 
 }
-
-
-//-------------------------------------------------------------------------------------UPDATE BAORD FUNCTION -------------------------------------------------------------//
 
 function updateBoard(array) {
     for(let i = 0; i < 5; i++) {
@@ -203,8 +150,6 @@ function updateBoard(array) {
         }
     }
 }
-
-//-------------------------------------------------------------------------------------UPDATE BAORD FUNCTION -------------------------------------------------------------//
 
 function incrementTurn() {
     turn++
@@ -283,7 +228,6 @@ function createResetBtn() {
     resetBtn.setAttribute("class", "resetBtn")
     resetEl.append(resetBtn)
     }, 2000)
-
 }
 
 
@@ -294,12 +238,9 @@ function resetDisplay() {
     gameBoardTiles.forEach((tile) => {
         tile.setAttribute("class", "sqr")
     })
-    tempGuess.forEach((guess) => {
-        guess.letters = []
+    keyEls.forEach((key) => {
+        key.setAttribute("class", "key")
     })
-    console.dir(gameBoardTiles)
-    console.dir(tempGuess)
-
 }
 
 function updateKeyboard(letter, color) {
