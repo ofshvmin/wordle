@@ -1,8 +1,9 @@
 import words from "../data/words.js"
+import library from "../data/library.js"
 
 /*-------------------------------- Constants --------------------------------*/
 
-const library = [] //directory file with list of all 5-letter words
+// const library = [] //directory file with list of all 5-letter words
 const usedWords = []//array of words that have already been used
 const validKeys = ['a', 'b', 'c', 'd', 'e','f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'enter', 'backspace'] 
 
@@ -17,10 +18,7 @@ const gameBoard = [
 
 /*-------------------------------- Variables --------------------------------*/
 
-let correctWord = ""
-let turn = 0
-let hasWon = false
-let hasLost = false
+let correctWord, turn, hasWon, hasLost
 
 /*------------------------ Cached Element References ------------------------*/
 
@@ -33,20 +31,27 @@ const resetBtn = document.createElement('button')
 /*----------------------------- Event Listeners -----------------------------*/
 
 keyEls.forEach((key) => {key.addEventListener('click', handleClick)})
-
 document.addEventListener("keydown", handleKeyStroke)
-
 resetBtn.addEventListener("click", pressReset)
 
 /*-------------------------------- Functions --------------------------------*/
 
+// function init() {
+//     if(correctWord) {
+//         usedWords.push(correctWord)
+//     }
+
+// }
+
+
 function initializeGame() {
+    //why do i ihave init AND reset as separate functions?
     if(correctWord) {
         usedWords.push(correctWord)
     }
+    console.log(usedWords)
     resetGameBoard()
     computerChoosesWord() 
-    console.log(correctWord) // <---- this is left intentionally to ensure i can meet win condition for the presentation
     render()
 }
 initializeGame()
@@ -91,7 +96,7 @@ function handleClick(evt) {
     handleInputs(ltrGuess)
     render()
 }
-    
+
 function handleKeyStroke(event) {
     let ltrGuess = event.key.toLowerCase()
     if(validKeys.includes(ltrGuess)) {
@@ -173,7 +178,6 @@ function showResultsTiles(idx, color) {
     gameBoardTiles[idx].classList.add('flip')
 }
 
-
 function checkForWin() {
     let playerWord = gameBoard[turn].playerGuess.join('')
     if(playerWord === correctWord) {
@@ -229,3 +233,17 @@ function updateKeyboard(letter, color) {
         keyEl.classList.add(color)
     }
 }
+
+
+//add list of valid guess words
+//-- library const already declared
+
+//fix yellow highlighting (limit number of yellow cells highlighted to the number of times that character was actually guessed)
+
+//bug found: 6th guess correct guess, failure message displays
+
+////add words to spring words list
+
+//style message to be more clearly visible
+
+//animated cells to pop when letter is input
