@@ -1,5 +1,5 @@
 import words from "../data/words.js"
-import library from "../data/library.js"
+// import library from "../data/library.js"
 
 /*-------------------------------- Constants --------------------------------*/
 
@@ -45,7 +45,6 @@ resetBtn.addEventListener("click", pressReset)
 
 
 function initializeGame() {
-    //why do i ihave init AND reset as separate functions?
     if(correctWord) {
         usedWords.push(correctWord)
     }
