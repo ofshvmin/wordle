@@ -12980,6 +12980,6 @@ export const validWords = [
   "zymic",
 ]
 
-export {
+export default {
   library,
 }

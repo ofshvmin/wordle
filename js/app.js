@@ -52,6 +52,7 @@ function initializeGame() {
     console.log(usedWords)
     resetGameBoard()
     computerChoosesWord() 
+    console.log(correctWord)
     render()
 }
 initializeGame()
@@ -154,23 +155,82 @@ function incrementTurn() {
     turn++
 }
 
+/* 
+we have a correct word AND
+gameBoard[turn].playerGuess -- an array with all the letters we need to compare
+-- if we reduce gameBoard[turn].playerGuess to an object like "guess" = {
+    --every--
+    e: 2
+    v: 1
+    r: 1
+    y: 1
+}   
+    we'll get a count of the instance of each letter guessed
+
+    then we still
+
+else if.... revealYellow(letter)
+if you guess a letter included in the word but not in the right place, we need to know
+-how many times you guess the letter AND
+
+function revealYellow(letter) {
+    *****FFFFFFF - forgot to consider is this letter already green? 
+    -how many times that letter is in the word
+
+    the tile you guessed should if yellow IF
+    -the instance of the guessed letter is <= the total instances of that letter in the correct word
+    ------ if we make this simply < (instance of guessed letter < total number of instances   )
+} 
+*/
+
+
 function evaluateGuess() {
-    let correctWordArr = correctWord.split('') 
+    let correctWordArr = correctWord.split('') //prob don't know this if we use string method charAt() / indexOf()
+    console.log(correctWordArr);
+    let countOfLetter = {}
+    const CWinstance = correctWordArr.reduce((letterCount, letter) => {
+        if(letterCount[letter]) {
+          letterCount[letter]++
+        } else {
+          letterCount[letter] = 1
+        }
+      return letterCount
+      }, {})
+    
     gameBoard[turn].playerGuess.forEach((letter, index) => {
         let tileIdx = 5 * turn + index
-        setTimeout(() => {
+        // setTimeout(() => {
         if(letter === correctWordArr[index]) {
+            countOfLetter[letter] ? countOfLetter[letter] ++ : countOfLetter[letter] = 1
+            console.log(countOfLetter);
             showResultsTiles(tileIdx, 'green')
             updateKeyboard(letter, 'green')
-        } else if(correctWordArr.includes(letter)) {
-            showResultsTiles(tileIdx, 'yellow')
-            updateKeyboard(letter, 'yellow')
+        } 
+    })
+      
+    
+// can i use .then() here???  will it cause the code to run async?  
+
+    gameBoard[turn].playerGuess.forEach((letter, index) => {
+        let tileIdx = 5 * turn + index
+
+       if(correctWordArr.includes(letter) && letter != correctWordArr[index]) {
+            countOfLetter[letter] ? countOfLetter[letter] ++ : countOfLetter[letter] = 1
+            if( countOfLetter[letter] <= CWinstance[letter] ) { 
+                showResultsTiles(tileIdx, 'yellow')
+                updateKeyboard(letter, 'yellow')
+            } else {
+                showResultsTiles(tileIdx, 'black')
+                updateKeyboard(letter, 'black')
+            }
+
         } else {
             showResultsTiles(tileIdx, 'black')
             updateKeyboard(letter, 'black')
         }
-    }, 250 * index)
     })
+
+//     , 250 * index)
 }
 
 function showResultsTiles(idx, color) {
@@ -237,8 +297,11 @@ function updateKeyboard(letter, color) {
 
 //add list of valid guess words
 //-- library const already declared
+// -- need to update evaluateGuess function OR add a function for a check for valid word
 
 //fix yellow highlighting (limit number of yellow cells highlighted to the number of times that character was actually guessed)
+//-- update showResultsTiles funtion
+
 
 //bug found: 6th guess correct guess, failure message displays
 
@@ -247,3 +310,5 @@ function updateKeyboard(letter, color) {
 //style message to be more clearly visible
 
 //animated cells to pop when letter is input
+
+//refactor init function and eliminate separate reset function for dryer code
