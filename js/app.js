@@ -1,9 +1,9 @@
 import words from "../data/words.js"
-// import library from "../data/library.js"
+import library from "../data/library.js"
 
 /*-------------------------------- Constants --------------------------------*/
 
-// const library = [] //directory file with list of all 5-letter words
+
 const usedWords = []//array of words that have already been used
 const validKeys = ['a', 'b', 'c', 'd', 'e','f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'enter', 'backspace'] 
 
@@ -36,19 +36,10 @@ resetBtn.addEventListener("click", pressReset)
 
 /*-------------------------------- Functions --------------------------------*/
 
-// function init() {
-//     if(correctWord) {
-//         usedWords.push(correctWord)
-//     }
-
-// }
-
-
 function initializeGame() {
     if(correctWord) {
         usedWords.push(correctWord)
     }
-    console.log(usedWords)
     resetGameBoard()
     computerChoosesWord() 
     render()
@@ -125,12 +116,15 @@ function handleInputs(ltrGuess) {
 function submitGuess() {
     if(gameBoard[turn].playerGuess.length < 5) {
         messageEl.textContent = "Guess must be 5 letters long"
+    } else if(!library.includes(gameBoard[turn].playerGuess.join(''))) {
+        messageEl.textContent = "This is not a real word"
     } else {
     evaluateGuess()
     checkForWin()
     incrementTurn()
     checkForLoss()
     }
+
 }
 
 function render() {
