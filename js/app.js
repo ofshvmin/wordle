@@ -45,6 +45,9 @@ function initializeGame() {
     render()
 }
 initializeGame()
+console.log('====================================');
+console.log(correctWord);
+console.log('====================================');
 
 function activateKeyboard() {
     keyEls.forEach((key) => {
