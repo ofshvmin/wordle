@@ -67,7 +67,6 @@ function reducer(state, action) {
                 return state;
               }
 };
-            
 
 
 export default function Game() {
@@ -101,20 +100,14 @@ export default function Game() {
     <div className="game">
       <h2>Game</h2>
 
-      <Board answer={state.answer} guesses={state.guesses} currentGuess={state.currentGuess} />
+      <Board 
+        answer={state.answer} 
+        guesses={state.guesses} 
+        currentGuess={state.currentGuess} 
+        message={state.message}
+      />
       {state.message ? <p className="message">{state.message}</p> : null}
 
-      {/* <button onClick={() => dispatch({ type: "ADD_LETTER", letter: "ZZZZZ" })}>
-        Add A
-      </button>
-      
-      <button onClick={() => dispatch({ type: "REMOVE_LETTER" })}>
-        Backspace
-      </button>
-      <button onClick={() => dispatch({ type: "SUBMIT_GUESS" })}>
-        Enter
-      </button> */}
-      
       <p>Answer (dev): {state.answer}</p>
       <p>Current guess: {state.currentGuess}</p>
       <p>Status: {state.status}</p>

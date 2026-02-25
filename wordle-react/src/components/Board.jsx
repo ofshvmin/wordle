@@ -29,7 +29,7 @@ function scoreGuess(answer, guess) {
 }
 
 
-export default function Board({ answer, guesses, currentGuess }) {
+export default function Board({ answer, guesses, currentGuess, message }) {
   const rows = 6;
   const cols = 5;
   
@@ -40,7 +40,10 @@ export default function Board({ answer, guesses, currentGuess }) {
     const letters = (isCurrent ? currentGuess : committed).padEnd(cols, "").slice(0, cols);
     
     return (
-      <div className="row" key={r}>
+      <div 
+        className={`row ${isCurrent && message ? "shake" : ""}`} 
+        key={`${r}-${message}`}
+      >
         {Array.from({ length: cols }, (_, c) => {
           const tileClass = `tile ${committed ? colors[c] : ""}`;
 

@@ -27,10 +27,47 @@
 
 .tile {
   height: 56px;
+  width: 56px;
   border: 2px solid #d3d6da;
   display: grid;
   place-items: center;
   font-weight: 700;
   font-size: 24px;
   text-transform: uppercase;
+}
+
+.tile.green {
+  background-color: #6aaa64;
+  border-color: #6aaa64;
+  color: white;
+}
+
+.tile.yellow {
+  background-color: #c9b458;
+  border-color: #c9b458;
+  color: white;
+}
+
+.tile.gray {
+  background-color: #787c7e;
+  border-color: #787c7e;
+  color: white;
+}
+
+@keyframes shake {
+  0% { transform: translateX(0); }
+  20% { transform: translateX(-6px); }
+  40% { transform: translateX(6px); }
+  60% { transform: translateX(-6px); }
+  80% { transform: translateX(6px); }
+  100% { transform: translateX(0); }
+}
+
+.shake {
+  animation: shake 250ms ease-in-out;
+}
+
+.message {
+  margin: 8px 0;
+  font-weight: 600;
 }
