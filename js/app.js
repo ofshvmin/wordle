@@ -45,9 +45,9 @@ function initializeGame() {
     render()
 }
 initializeGame()
-console.log('====================================');
-console.log(correctWord);
-console.log('====================================');
+// console.log('====================================');
+// console.log(correctWord);
+// console.log('====================================');
 
 function activateKeyboard() {
     keyEls.forEach((key) => {
@@ -151,22 +151,41 @@ function incrementTurn() {
 }
 
 function evaluateGuess() {
-    let correctWordArr = correctWord.split('') 
-    gameBoard[turn].playerGuess.forEach((letter, index) => {
-        let tileIdx = 5 * turn + index
-        setTimeout(() => {
-        if(letter === correctWordArr[index]) {
-            showResultsTiles(tileIdx, 'green')
-            updateKeyboard(letter, 'green')
-        } else if(correctWordArr.includes(letter)) {
-            showResultsTiles(tileIdx, 'yellow')
-            updateKeyboard(letter, 'yellow')
-        } else {
-            showResultsTiles(tileIdx, 'black')
-            updateKeyboard(letter, 'black')
-        }
-    }, 250 * index)
-    })
+    const correctWordArr = correctWord.split('');
+    const guessArr = gameBoard[turn].playerGuess;
+
+  // 1) Count remaining letters in answer (we'll "consume" them)
+    const remaining = {};
+    for (const ch of correctWordArr) remaining[ch] = (remaining[ch] || 0) + 1;
+
+  // 2) First pass: mark greens and consume counts
+  const results = Array(5).fill('black'); // black = absent
+    guessArr.forEach((letter, i) => {
+    if (letter === correctWordArr[i]) {
+        results[i] = 'green';
+        remaining[letter] -= 1;
+    }
+});
+
+  // 3) Second pass: mark yellows where counts remain
+guessArr.forEach((letter, i) => {
+    if (results[i] === 'green') return;
+    if (remaining[letter] > 0) {
+    results[i] = 'yellow';
+    remaining[letter] -= 1;
+    }
+});
+
+  // 4) Render with your existing stagger animation
+results.forEach((color, index) => {
+    const letter = guessArr[index];
+    const tileIdx = 5 * turn + index;
+
+    setTimeout(() => {
+    showResultsTiles(tileIdx, color);
+    updateKeyboard(letter, color);
+    }, 250 * index);
+    });
 }
 
 function showResultsTiles(idx, color) {
