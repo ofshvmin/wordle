@@ -1,3 +1,4 @@
+import words from "../words";
 import { useEffect, useReducer } from "react";
 import Board from "./Board";
 
@@ -23,6 +24,7 @@ function reducer(state, action) {
       
       case "ADD_LETTER":
         if (state.status !== "playing") return state;
+        if (!state.answer) return state;
         if (state.currentGuess.length >= 5) return state;
         
         return {
@@ -101,10 +103,10 @@ function reducer(state, action) {
   }, [dispatch]);
 
   useEffect(() => {
-    const words = ["SHRED", "HORSE", "SMART", "PLANT", "BRICK"]; // temporary list
+    
     const random = words[Math.floor(Math.random() * words.length)];
 
-    dispatch({ type: "SET_ANSWER", answer: random });
+    dispatch({ type: "SET_ANSWER", answer: random.toUpperCase() });
   }, [dispatch]);
 
   return (
