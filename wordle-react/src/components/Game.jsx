@@ -25,7 +25,13 @@ function reducer(state, action) {
         };
         
         case "REMOVE_LETTER":
-          return state;
+          if (state.status !== "playing") return state;
+          if (state.currentGuess.length === 0) return state;
+
+          return {
+            ...state,
+            currentGuess: state.currentGuess.slice(0, -1),
+          };
           
           case "SUBMIT_GUESS":
             return state;
@@ -47,6 +53,10 @@ function reducer(state, action) {
 
       <button onClick={() => dispatch({ type: "ADD_LETTER", letter: "A" })}>
         Add A
+      </button>
+      
+      <button onClick={() => dispatch({ type: "REMOVE_LETTER" })}>
+        Backspace
       </button>
       
       <pre>{JSON.stringify(state, null, 2)}</pre>
