@@ -7,6 +7,7 @@ const initialState = {
   currentGuess: "",
   turn: 0,
   status: "playing", // "playing" | "won" | "lost"
+  message: "", // e.g. "Not enough letters", "Not in word list"
 };
 
 
@@ -36,8 +37,14 @@ function reducer(state, action) {
         };
           
         case "SUBMIT_GUESS": {
-          if (state.status !== "playing") return state;
-          if (state.currentGuess.length !== 5) return state;
+          
+          if (state.currentGuess.length !== 5) {
+            return { ...state, message: "Not enough letters" };
+          }
+
+          if (state.guesses.includes(state.currentGuess)) {
+            return { ...state, message: "Already guessed" };
+          }
 
           const isWin = state.currentGuess === state.answer;
           const nextTurn = state.turn + 1;
@@ -48,6 +55,7 @@ function reducer(state, action) {
             guesses: [...state.guesses, state.currentGuess],
             currentGuess: "",
             turn: nextTurn,
+            message: "",
             status: isWin ? "won" : isLoss ? "lost" : "playing",
           };
         };
@@ -58,7 +66,7 @@ function reducer(state, action) {
               default:
                 return state;
               }
-            }
+};
             
 
 
@@ -94,6 +102,7 @@ export default function Game() {
       <h2>Game</h2>
 
       <Board answer={state.answer} guesses={state.guesses} currentGuess={state.currentGuess} />
+      {state.message ? <p className="message">{state.message}</p> : null}
 
       {/* <button onClick={() => dispatch({ type: "ADD_LETTER", letter: "ZZZZZ" })}>
         Add A
