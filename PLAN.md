@@ -49,3 +49,15 @@ Rebuild this Wordle clone as a React app that visually and behaviorally mirrors 
 - Matches NYT Wordle interactions closely
 - No known logic bugs in common cases
 - Runs as React app with clean components
+
+## Migration Strategy
+
+We will NOT incrementally convert the existing vanilla app.
+
+Instead:
+- Create a new React app (Vite)
+- Re-implement game logic inside React using reducer-based state
+- Port styling intentionally (not copy-paste blindly)
+- Treat existing vanilla app as reference only
+
+The vanilla version is now feature-frozen except for critical bug fixes.
