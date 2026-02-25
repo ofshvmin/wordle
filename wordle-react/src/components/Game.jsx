@@ -1,7 +1,7 @@
 import { useReducer } from "react";
 
 const initialState = {
-  answer: "",
+  answer: "SHRED",
   guesses: [],
   currentGuess: "",
   turn: 0,
@@ -34,7 +34,15 @@ function reducer(state, action) {
           };
           
           case "SUBMIT_GUESS":
-            return state;
+            if (state.status !== "playing") return state;
+            if (state.currentGuess.length !== 5) return state;
+
+            return {
+              ...state,
+              guesses: [...state.guesses, state.currentGuess],
+              currentGuess: "",
+              turn: state.turn + 1,
+          };
             
             case "RESET_GAME":
               return state;
@@ -58,7 +66,13 @@ function reducer(state, action) {
       <button onClick={() => dispatch({ type: "REMOVE_LETTER" })}>
         Backspace
       </button>
+      <button onClick={() => dispatch({ type: "SUBMIT_GUESS" })}>
+        Enter
+      </button>
       
+      <p>Answer (dev): {state.answer}</p>
+      <p>Current guess: {state.currentGuess}</p>
+
       <pre>{JSON.stringify(state, null, 2)}</pre>
     </div>
   );
