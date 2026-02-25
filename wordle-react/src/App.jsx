@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Landing from "./components/Landing";
 import Game from "./components/Game";
+import "./App.css";
 
 function App() {
   const [started, setStarted] = useState(false);

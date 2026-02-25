@@ -1,4 +1,5 @@
 import { useEffect, useReducer } from "react";
+import Board from "./Board";
 
 const initialState = {
   answer: "SHRED",
@@ -59,7 +60,9 @@ function reducer(state, action) {
               }
             }
             
-            export default function Game() {
+
+
+export default function Game() {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
@@ -84,11 +87,13 @@ function reducer(state, action) {
 
   window.addEventListener("keydown", onKeyDown);
   return () => window.removeEventListener("keydown", onKeyDown);
-}, []);
+}, [dispatch]);
 
   return (
-    <div>
+    <div className="game">
       <h2>Game</h2>
+
+      <Board guesses={state.guesses} currentGuess={state.currentGuess} />
 
       {/* <button onClick={() => dispatch({ type: "ADD_LETTER", letter: "ZZZZZ" })}>
         Add A
@@ -103,6 +108,8 @@ function reducer(state, action) {
       
       <p>Answer (dev): {state.answer}</p>
       <p>Current guess: {state.currentGuess}</p>
+      <p>Status: {state.status}</p>
+      <p>Turn: {state.turn}</p>
 
       <pre>{JSON.stringify(state, null, 2)}</pre>
     </div>

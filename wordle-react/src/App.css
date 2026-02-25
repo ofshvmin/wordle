@@ -1,42 +1,36 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+
+
+.app {
+  min-height: 100vh;
+  display: grid;
+  place-items: start center;
+  padding: 24px;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.game {
+  width: 100%;
+  max-width: 420px;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.board {
+  display: grid;
+  gap: 8px;
+  margin: 16px 0;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.row {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
 }
 
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
+.tile {
+  height: 56px;
+  border: 2px solid #d3d6da;
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+  font-size: 24px;
+  text-transform: uppercase;
 }
