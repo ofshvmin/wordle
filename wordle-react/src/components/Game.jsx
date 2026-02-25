@@ -33,16 +33,20 @@ function reducer(state, action) {
             currentGuess: state.currentGuess.slice(0, -1),
           };
           
-          case "SUBMIT_GUESS":
-            if (state.status !== "playing") return state;
-            if (state.currentGuess.length !== 5) return state;
+        case "SUBMIT_GUESS": {
+          if (state.status !== "playing") return state;
+          if (state.currentGuess.length !== 5) return state;
 
-            return {
-              ...state,
-              guesses: [...state.guesses, state.currentGuess],
-              currentGuess: "",
-              turn: state.turn + 1,
+          const isWin = state.currentGuess === state.answer;
+
+          return {
+            ...state,
+            guesses: [...state.guesses, state.currentGuess],
+            currentGuess: "",
+            turn: state.turn + 1,
+            status: isWin ? "won" : state.status,
           };
+        };
             
             case "RESET_GAME":
               return state;
@@ -59,7 +63,7 @@ function reducer(state, action) {
     <div>
       <h2>Game</h2>
 
-      <button onClick={() => dispatch({ type: "ADD_LETTER", letter: "A" })}>
+      <button onClick={() => dispatch({ type: "ADD_LETTER", letter: "SHRED" })}>
         Add A
       </button>
       
