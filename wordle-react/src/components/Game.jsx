@@ -2,7 +2,7 @@ import { useEffect, useReducer } from "react";
 import Board from "./Board";
 
 const initialState = {
-  answer: "SHRED",
+  answer: "",
   guesses: [],
   currentGuess: "",
   turn: 0,
@@ -16,7 +16,10 @@ function reducer(state, action) {
   
   switch (action.type) {
     case "SET_ANSWER":
-      return state;
+      return {
+        ...state,
+        answer: action.answer,
+      };
       
       case "ADD_LETTER":
         if (state.status !== "playing") return state;
@@ -30,27 +33,27 @@ function reducer(state, action) {
         case "REMOVE_LETTER":{
           if (state.status !== "playing") return state;
           if (state.currentGuess.length === 0) return state;
-
+          
           return {
             ...state,
             currentGuess: state.currentGuess.slice(0, -1),
           };
         };
-          
+        
         case "SUBMIT_GUESS": {
           
           if (state.currentGuess.length !== 5) {
             return { ...state, message: "Not enough letters", shakeId: state.shakeId + 1 };
           }
-
+          
           if (state.guesses.includes(state.currentGuess)) {
             return { ...state, message: "Already guessed", shakeId: state.shakeId + 1 };
           }
-
+          
           const isWin = state.currentGuess === state.answer;
           const nextTurn = state.turn + 1;
           const isLoss = !isWin && nextTurn >= 6;
-
+          
           return {
             ...state,
             message: "",
@@ -60,42 +63,49 @@ function reducer(state, action) {
             status: isWin ? "won" : isLoss ? "lost" : "playing",
           };
         };
-            
-            case "RESET_GAME":
-              return state;
+        
+        case "RESET_GAME":
+          return state;
+          
+          default:
+            return state;
+          }
+        };
+        
+        
+        export default function Game() {
+          const [state, dispatch] = useReducer(reducer, initialState);
+          
+          useEffect(() => {
+            function onKeyDown(e) {
+              const key = e.key;
               
-              default:
-                return state;
+              if (/^[a-zA-Z]$/.test(key)) {
+                dispatch({ type: "ADD_LETTER", letter: key.toUpperCase() });
+                return;
               }
-};
-
-
-export default function Game() {
-  const [state, dispatch] = useReducer(reducer, initialState);
-
-  useEffect(() => {
-  function onKeyDown(e) {
-    const key = e.key;
-
-    if (/^[a-zA-Z]$/.test(key)) {
-      dispatch({ type: "ADD_LETTER", letter: key.toUpperCase() });
-      return;
-    }
-
-    if (key === "Backspace") {
-      dispatch({ type: "REMOVE_LETTER" });
-      return;
-    }
-
-    if (key === "Enter") {
-      dispatch({ type: "SUBMIT_GUESS" });
-      return;
+              
+              if (key === "Backspace") {
+                dispatch({ type: "REMOVE_LETTER" });
+                return;
+              }
+              
+              if (key === "Enter") {
+                dispatch({ type: "SUBMIT_GUESS" });
+                return;
     }
   }
 
-  window.addEventListener("keydown", onKeyDown);
-  return () => window.removeEventListener("keydown", onKeyDown);
-}, [dispatch]);
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [dispatch]);
+
+  useEffect(() => {
+    const words = ["SHRED", "HORSE", "SMART", "PLANT", "BRICK"]; // temporary list
+    const random = words[Math.floor(Math.random() * words.length)];
+
+    dispatch({ type: "SET_ANSWER", answer: random });
+  }, [dispatch]);
 
   return (
     <div className="game">
