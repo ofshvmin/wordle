@@ -93,7 +93,7 @@ export default function Game() {
     <div className="game">
       <h2>Game</h2>
 
-      <Board guesses={state.guesses} currentGuess={state.currentGuess} />
+      <Board answer={state.answer} guesses={state.guesses} currentGuess={state.currentGuess} />
 
       {/* <button onClick={() => dispatch({ type: "ADD_LETTER", letter: "ZZZZZ" })}>
         Add A
