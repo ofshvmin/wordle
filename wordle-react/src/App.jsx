@@ -1,12 +1,13 @@
 import { useState } from "react";
 import Landing from "./components/Landing";
+import Game from "./components/Game";
 
 function App() {
   const [started, setStarted] = useState(false);
 
   return (
     <div className="app">
-      {started ? <div>Game goes here</div> : <Landing onStart={() => setStarted(true)} />}
+      {started ? <Game /> : <Landing onStart={() => setStarted(true)} />}
     </div>
   );
 }
