@@ -1,4 +1,4 @@
-import { useReducer } from "react";
+import { useEffect, useReducer } from "react";
 
 const initialState = {
   answer: "SHRED",
@@ -62,11 +62,35 @@ function reducer(state, action) {
             export default function Game() {
   const [state, dispatch] = useReducer(reducer, initialState);
 
+  useEffect(() => {
+  function onKeyDown(e) {
+    const key = e.key;
+
+    if (/^[a-zA-Z]$/.test(key)) {
+      dispatch({ type: "ADD_LETTER", letter: key.toUpperCase() });
+      return;
+    }
+
+    if (key === "Backspace") {
+      dispatch({ type: "REMOVE_LETTER" });
+      return;
+    }
+
+    if (key === "Enter") {
+      dispatch({ type: "SUBMIT_GUESS" });
+      return;
+    }
+  }
+
+  window.addEventListener("keydown", onKeyDown);
+  return () => window.removeEventListener("keydown", onKeyDown);
+}, []);
+
   return (
     <div>
       <h2>Game</h2>
 
-      <button onClick={() => dispatch({ type: "ADD_LETTER", letter: "ZZZZZ" })}>
+      {/* <button onClick={() => dispatch({ type: "ADD_LETTER", letter: "ZZZZZ" })}>
         Add A
       </button>
       
@@ -75,7 +99,7 @@ function reducer(state, action) {
       </button>
       <button onClick={() => dispatch({ type: "SUBMIT_GUESS" })}>
         Enter
-      </button>
+      </button> */}
       
       <p>Answer (dev): {state.answer}</p>
       <p>Current guess: {state.currentGuess}</p>
