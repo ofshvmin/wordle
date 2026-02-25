@@ -7,7 +7,8 @@ const initialState = {
   currentGuess: "",
   turn: 0,
   status: "playing", // "playing" | "won" | "lost"
-  message: "", // e.g. "Not enough letters", "Not in word list"
+  message: "", // e.g. "Not enough letters", "Not in word list",
+  shakeId: 0,
 };
 
 
@@ -39,11 +40,11 @@ function reducer(state, action) {
         case "SUBMIT_GUESS": {
           
           if (state.currentGuess.length !== 5) {
-            return { ...state, message: "Not enough letters" };
+            return { ...state, message: "Not enough letters", shakeId: state.shakeId + 1 };
           }
 
           if (state.guesses.includes(state.currentGuess)) {
-            return { ...state, message: "Already guessed" };
+            return { ...state, message: "Already guessed", shakeId: state.shakeId + 1 };
           }
 
           const isWin = state.currentGuess === state.answer;
@@ -52,10 +53,10 @@ function reducer(state, action) {
 
           return {
             ...state,
+            message: "",
             guesses: [...state.guesses, state.currentGuess],
             currentGuess: "",
             turn: nextTurn,
-            message: "",
             status: isWin ? "won" : isLoss ? "lost" : "playing",
           };
         };
@@ -105,6 +106,7 @@ export default function Game() {
         guesses={state.guesses} 
         currentGuess={state.currentGuess} 
         message={state.message}
+        shakeId={state.shakeId}
       />
       {state.message ? <p className="message">{state.message}</p> : null}
 
