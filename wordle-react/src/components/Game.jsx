@@ -10,6 +10,21 @@ const initialState = {
 
 function reducer(state, action) {
   switch (action.type) {
+    case "SET_ANSWER":
+      return state;
+
+    case "ADD_LETTER":
+      return state;
+
+    case "REMOVE_LETTER":
+      return state;
+
+    case "SUBMIT_GUESS":
+      return state;
+
+    case "RESET_GAME":
+      return state;
+
     default:
       return state;
   }
