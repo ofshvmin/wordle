@@ -39,6 +39,14 @@ playBtn.addEventListener("click", () => { modalOverlay.style.display = "none" })
 
 /*-------------------------------- Functions --------------------------------*/
 
+let messageTimer = null
+
+function showMessage(text) {
+    clearTimeout(messageTimer)
+    messageEl.textContent = text
+    messageTimer = setTimeout(() => { messageEl.textContent = "" }, 2000)
+}
+
 function initializeGame() {
     if(correctWord) {
         usedWords.push(correctWord)
@@ -99,7 +107,7 @@ function handleKeyStroke(event) {
             handleInputs(ltrGuess)
             render()
     } else {
-    messageEl.textContent = "That's not a valid key"
+    showMessage("That's not a valid key")
     }
     render()
 }
@@ -108,11 +116,17 @@ function handleInputs(ltrGuess) {
     if(ltrGuess != 'backspace' && ltrGuess != 'enter'){
         if(gameBoard[turn].playerGuess.length < 5) {
             gameBoard[turn].playerGuess.push(ltrGuess)
+            const tileIdx = 5 * turn + (gameBoard[turn].playerGuess.length - 1)
+            const tile = gameBoardTiles[tileIdx]
+            tile.classList.remove('pop')
+            void tile.offsetWidth // force reflow so re-adding the class restarts animation
+            tile.classList.add('pop')
+            tile.addEventListener('animationend', () => tile.classList.remove('pop'), { once: true })
         } else {
-            messageEl.textContent = "Guess can only be 5 letters long" // --------------update this to display wiggle animation as a day 2 feature 
-        }   
-    } 
-    else if(ltrGuess === 'backspace') { 
+            showMessage("Guess can only be 5 letters long")
+        }
+    }
+    else if(ltrGuess === 'backspace') {
         gameBoard[turn].playerGuess.pop()
     } else {
         submitGuess()
@@ -121,16 +135,20 @@ function handleInputs(ltrGuess) {
 
 function submitGuess() {
     if(gameBoard[turn].playerGuess.length < 5) {
-        messageEl.textContent = "Guess must be 5 letters long"
+        showMessage("Guess must be 5 letters long")
     } else if(!library.includes(gameBoard[turn].playerGuess.join(''))) {
-        messageEl.textContent = "This is not a real word"
+        showMessage("Not in word list")
+        const currentRow = document.querySelectorAll('.row')[turn]
+        currentRow.classList.remove('wiggle')
+        void currentRow.offsetWidth
+        currentRow.classList.add('wiggle')
+        currentRow.addEventListener('animationend', () => currentRow.classList.remove('wiggle'), { once: true })
     } else {
-    evaluateGuess()
-    checkForWin()
-    incrementTurn()
-    checkForLoss()
+        evaluateGuess()
+        checkForWin()
+        incrementTurn()
+        checkForLoss()
     }
-
 }
 
 function render() {
@@ -248,7 +266,7 @@ function showResultsTiles(idx, color) {
 function checkForWin() {
     let playerWord = gameBoard[turn].playerGuess.join('')
     if(playerWord === correctWord) {
-    messageEl.textContent = "You've won!  Congratulations!"
+    showMessage("You've won!  Congratulations!")
     confetti.start()
     hasWon = true
     keyEls.forEach((key) => {
@@ -262,7 +280,7 @@ function checkForWin() {
 function checkForLoss() {
     if(turn > 5) {
         hasLost = true
-        messageEl.textContent = `You didn't quite get it this time.  The correct word was ${correctWord}`
+        showMessage(`You didn't quite get it this time.  The correct word was ${correctWord}`)
         keyEls.forEach((key) => {
         key.removeEventListener('click', handleClick)
     })

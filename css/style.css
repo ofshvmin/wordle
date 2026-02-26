@@ -44,6 +44,10 @@
     background-color: var(--body-yellow);
 }
 
+.logo-cell.logo-pink {
+    background-color: var(--body-pink);
+}
+
 .modal-title {
     font-size: 52px;
     font-weight: 900;
@@ -126,18 +130,32 @@ h1 {
     align-content: center;
     justify-content: center;
     margin: 0;
+    font-weight: 900;
+    letter-spacing: 2px;
+    font-family: 'Schibsted Grotesk', sans-serif;
 }
 
-h2 {
-    display: flex;
-    margin: 0;
-    height: 60px;
-    width: 400px;
-    justify-content: center;
-    align-items: center;
+#message {
+    position: fixed;
+    top: 116px;
+    left: 50%;
+    transform: translateX(-50%);
     color: var(--bvody-dark-green);
-    font-size: 24px;
+    font-size: 20px;
     font-weight: bold;
+    font-family: 'Schibsted Grotesk', sans-serif;
+    border-radius: 10px;
+    white-space: nowrap;
+    pointer-events: none;
+    z-index: 500;
+    display: none;
+}
+
+#message:not(:empty) {
+    display: block;
+    background: white;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.14);
+    padding: 10px 24px;
 }
 
 
@@ -149,6 +167,7 @@ section.board {
     /* padding: 6px; */
     justify-content: center;
     align-content: center;
+    margin-top: 76px;
 }
 
 .sqr {
@@ -166,7 +185,7 @@ section.board {
 }
 
 .flip {
-    animation: 0.5s linear flipping; 
+    animation: 0.5s linear flipping;
 }
 
 @keyframes flipping {
@@ -175,10 +194,33 @@ section.board {
     }
     50% {
         transform: rotateX(90deg);
-    }    
+    }
     100% {
         transform: rotateX(0deg);
     }
+}
+
+.pop {
+    animation: popping 200ms ease-in-out;
+}
+
+@keyframes popping {
+    0%   { transform: scale(1); }
+    50%  { transform: scale(1.12); }
+    100% { transform: scale(1); }
+}
+
+.wiggle {
+    animation: wiggling 300ms ease-in-out;
+}
+
+@keyframes wiggling {
+    0%   { transform: translateX(0); }
+    20%  { transform: translateX(-7px); }
+    40%  { transform: translateX(7px); }
+    60%  { transform: translateX(-7px); }
+    80%  { transform: translateX(7px); }
+    100% { transform: translateX(0); }
 }
 
 
@@ -209,30 +251,39 @@ button {
 }
 
 section.keyboard {
-    margin: 0;
+    display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
+    margin: 12px 0;
+    gap: 6px;
 }
 
 .keyboard > div {
     display: flex;
-    display: column;
-    min-width: 40px;
-    
-    align-items: center;
     justify-content: center;
-    text-align: center;
+    gap: 6px;
 }
 
 .key {
-    padding: 12px 14px;
-    max-width: 100%;
-    margin: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 42px;
+    height: 56px;
+    padding: 0 4px;
     color: black;
     font-weight: bold;
-    border: 3px solid var(--body-grey);
     background-color: var(--body-grey);
-    border-radius: 12px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-family: 'Schibsted Grotesk', sans-serif;
+    cursor: pointer;
+}
+
+.key-wide {
+    min-width: 64px;
+    font-size: 12px;
 }
 
 .green {
@@ -264,16 +315,18 @@ section.keyboard {
         height: 40px;
         align-content: center;
         margin: 0;
+        font-weight: 900;
+        letter-spacing: 2px;
+        font-family: 'Schibsted Grotesk', sans-serif;
     }
-    h2 {
-        display: flex;
-        margin: 0;
-        height: 20px;
-        align-items: center;
-        justify-items: center;
-        font-size: 16px;
+    #message {
+        font-size: 14px;
+        top: 76px;
     }
-    
+    section.board {
+        margin-top: 52px;
+    }
+
     section#top > div {
         display: flex;
         background-image: none;
@@ -292,16 +345,19 @@ section.keyboard {
     }
 
     section.keyboard {
-        align-items: center;
-        justify-content: center;
+        gap: 4px;
+    }
+    .keyboard > div {
+        gap: 4px;
     }
     .key {
-        padding: 4px 6px;
-        max-width: 100%;
-        margin: 1px;
-        color: black;
-        font-weight: bold;
-        border-radius: 8px;
+        min-width: 28px;
+        height: 42px;
+        font-size: 11px;
+    }
+    .key-wide {
+        min-width: 46px;
+        font-size: 10px;
     }
     
     #resetBtn {
