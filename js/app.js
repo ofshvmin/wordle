@@ -150,43 +150,92 @@ function incrementTurn() {
     turn++
 }
 
+// function evaluateGuess() {
+//     const correctWordArr = correctWord.split('');
+//     const guessArr = gameBoard[turn].playerGuess;
+
+//   // 1) Count remaining letters in answer (we'll "consume" them)
+//     const remaining = {};
+//     for (const ch of correctWordArr) remaining[ch] = (remaining[ch] || 0) + 1;
+
+//   // 2) First pass: mark greens and consume counts
+//   const results = Array(5).fill('black'); // black = absent
+//     guessArr.forEach((letter, i) => {
+//     if (letter === correctWordArr[i]) {
+//         results[i] = 'green';
+//         remaining[letter] -= 1;
+//     }
+// });
+
+//   // 3) Second pass: mark yellows where counts remain
+// guessArr.forEach((letter, i) => {
+//     if (results[i] === 'green') return;
+//     if (remaining[letter] > 0) {
+//     results[i] = 'yellow';
+//     remaining[letter] -= 1;
+//     }
+// });
+
+//   // 4) Render with your existing stagger animation
+// results.forEach((color, index) => {
+//     const letter = guessArr[index];
+//     const tileIdx = 5 * turn + index;
+
+//     setTimeout(() => {
+//     showResultsTiles(tileIdx, color);
+//     updateKeyboard(letter, color);
+//     }, 250 * index);
+//     });
+// }
+
 function evaluateGuess() {
-    const correctWordArr = correctWord.split('');
-    const guessArr = gameBoard[turn].playerGuess;
+  const guessArr = gameBoard[turn].playerGuess;
 
-  // 1) Count remaining letters in answer (we'll "consume" them)
-    const remaining = {};
-    for (const ch of correctWordArr) remaining[ch] = (remaining[ch] || 0) + 1;
+  const results = scoreGuess(correctWord, guessArr);
 
-  // 2) First pass: mark greens and consume counts
-  const results = Array(5).fill('black'); // black = absent
-    guessArr.forEach((letter, i) => {
-    if (letter === correctWordArr[i]) {
-        results[i] = 'green';
-        remaining[letter] -= 1;
-    }
-});
-
-  // 3) Second pass: mark yellows where counts remain
-guessArr.forEach((letter, i) => {
-    if (results[i] === 'green') return;
-    if (remaining[letter] > 0) {
-    results[i] = 'yellow';
-    remaining[letter] -= 1;
-    }
-});
-
-  // 4) Render with your existing stagger animation
-results.forEach((color, index) => {
+  results.forEach((color, index) => {
     const letter = guessArr[index];
     const tileIdx = 5 * turn + index;
 
     setTimeout(() => {
-    showResultsTiles(tileIdx, color);
-    updateKeyboard(letter, color);
+      showResultsTiles(tileIdx, color);
+      updateKeyboard(letter, color);
     }, 250 * index);
-    });
+  });
 }
+
+
+function scoreGuess(correctWord, guessArr) {
+  const answer = correctWord.toUpperCase().split('');
+  const guess = guessArr.map(ch => ch.toUpperCase());
+
+  // Count letters in the answer
+  const remaining = Object.create(null);
+  for (const ch of answer) remaining[ch] = (remaining[ch] || 0) + 1;
+
+  const results = Array(5).fill('black');
+
+  // Pass 1: greens
+  for (let i = 0; i < 5; i++) {
+    if (guess[i] === answer[i]) {
+      results[i] = 'green';
+      remaining[guess[i]] -= 1; // consume
+    }
+  }
+
+  // Pass 2: yellows (only if any remain)
+  for (let i = 0; i < 5; i++) {
+    if (results[i] === 'green') continue;
+    const ch = guess[i];
+    if (remaining[ch] > 0) {
+      results[i] = 'yellow';
+      remaining[ch] -= 1; // consume
+    }
+  }
+
+  return results;
+}
+
 
 function showResultsTiles(idx, color) {
     gameBoardTiles[idx].classList.add(color)
