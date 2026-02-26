@@ -222,7 +222,6 @@ section.keyboard {
         margin: 1px;
         color: black;
         font-weight: bold;
-        background-color: var(--body-grey);
         border-radius: 8px;
     }
     
