@@ -27,12 +27,15 @@ const keyEls = document.querySelectorAll(".key")
 const messageEl = document.getElementById("message")
 const resetEl = document.getElementById("resetBtn")
 const resetBtn = document.createElement('button')
+const modalOverlay = document.getElementById("modal-overlay")
+const playBtn = document.getElementById("play-btn")
 
 /*----------------------------- Event Listeners -----------------------------*/
 
 keyEls.forEach((key) => {key.addEventListener('click', handleClick)})
 document.addEventListener("keydown", handleKeyStroke)
 resetBtn.addEventListener("click", pressReset)
+playBtn.addEventListener("click", () => { modalOverlay.style.display = "none" })
 
 /*-------------------------------- Functions --------------------------------*/
 

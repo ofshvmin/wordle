@@ -1,3 +1,82 @@
+/* ---- Modal ---- */
+
+#modal-overlay {
+    position: fixed;
+    inset: 0;
+    background-color: #f4f4f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+#modal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 40px 32px;
+}
+
+#modal-logo {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5px;
+    width: 90px;
+    height: 90px;
+    border: 3px solid #1a1a1b;
+    padding: 6px;
+    border-radius: 10px;
+    margin-bottom: 24px;
+    background-color: #1a1a1b;
+}
+
+.logo-cell {
+    background-color: white;
+    border-radius: 2px;
+}
+
+.logo-cell.logo-green {
+    background-color: var(--body-green);
+}
+
+.logo-cell.logo-yellow {
+    background-color: var(--body-yellow);
+}
+
+.modal-title {
+    font-size: 52px;
+    font-weight: 900;
+    margin: 0 0 16px;
+    color: #1a1a1b;
+    letter-spacing: 2px;
+}
+
+.modal-desc {
+    font-size: 22px;
+    color: #1a1a1b;
+    margin: 0 0 36px;
+    line-height: 1.45;
+}
+
+#play-btn {
+    background-color: #1a1a1b;
+    color: white;
+    border: none;
+    padding: 14px 48px;
+    font-size: 18px;
+    font-weight: 700;
+    border-radius: 30px;
+    cursor: pointer;
+    font-family: 'Schibsted Grotesk', sans-serif;
+}
+
+#play-btn:hover {
+    opacity: 0.8;
+}
+
+/* ---- End Modal ---- */
+
 body {
     background-color: white;
     font-family: 'Schibsted Grotesk', sans-serif;
