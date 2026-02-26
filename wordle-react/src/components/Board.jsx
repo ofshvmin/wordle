@@ -45,7 +45,7 @@ export default function Board({ answer, guesses, currentGuess, message, shakeId 
         key={`${r}-${shakeId}`}
       >
         {Array.from({ length: cols }, (_, c) => {
-          const tileClass = `tile ${committed ? colors[c] : ""}`;
+          const tileClass = `tile ${committed ? `reveal ${colors[c]}` : ""}`;
 
           return (
           <div className={tileClass} key={c}>

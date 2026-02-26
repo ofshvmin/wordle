@@ -111,23 +111,17 @@ function reducer(state, action) {
 
   return (
     <div className="game">
-      <h2>Game</h2>
+      <div className="header">Wordle</div>
 
-      <Board 
-        answer={state.answer} 
-        guesses={state.guesses} 
-        currentGuess={state.currentGuess} 
+      <Board
+        answer={state.answer}
+        guesses={state.guesses}
+        currentGuess={state.currentGuess}
         message={state.message}
         shakeId={state.shakeId}
       />
+
       {state.message ? <p className="message">{state.message}</p> : null}
-
-      <p>Answer (dev): {state.answer}</p>
-      <p>Current guess: {state.currentGuess}</p>
-      <p>Status: {state.status}</p>
-      <p>Turn: {state.turn}</p>
-
-      <pre>{JSON.stringify(state, null, 2)}</pre>
     </div>
   );
 }
