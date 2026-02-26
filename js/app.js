@@ -29,6 +29,9 @@ const resetEl = document.getElementById("resetBtn")
 const resetBtn = document.createElement('button')
 const modalOverlay = document.getElementById("modal-overlay")
 const playBtn = document.getElementById("play-btn")
+const gameoverOverlay = document.getElementById("gameover-overlay")
+const gameoverMessage = document.getElementById("gameover-message")
+const playAgainBtn = document.getElementById("play-again-btn")
 
 /*----------------------------- Event Listeners -----------------------------*/
 
@@ -36,6 +39,11 @@ keyEls.forEach((key) => {key.addEventListener('click', handleClick)})
 document.addEventListener("keydown", handleKeyStroke)
 resetBtn.addEventListener("click", pressReset)
 playBtn.addEventListener("click", () => { modalOverlay.style.display = "none" })
+playAgainBtn.addEventListener("click", () => {
+    gameoverOverlay.classList.remove("active")
+    confetti.stop()
+    initializeGame()
+})
 
 /*-------------------------------- Functions --------------------------------*/
 
@@ -266,28 +274,31 @@ function showResultsTiles(idx, color) {
 function checkForWin() {
     let playerWord = gameBoard[turn].playerGuess.join('')
     if(playerWord === correctWord) {
-    showMessage("You've won!  Congratulations!")
-    confetti.start()
-    hasWon = true
-    keyEls.forEach((key) => {
-        key.removeEventListener('click', handleClick)
-    })
-    document.removeEventListener("keydown", handleKeyStroke)
-    createResetBtn()
+        hasWon = true
+        confetti.start()
+        keyEls.forEach((key) => {
+            key.removeEventListener('click', handleClick)
+        })
+        document.removeEventListener("keydown", handleKeyStroke)
+        setTimeout(() => {
+            gameoverMessage.textContent = "🎉 Congratulations!"
+            gameoverOverlay.classList.add("active")
+        }, 1600)
     }
 }
 
 function checkForLoss() {
     if(turn > 5) {
         hasLost = true
-        showMessage(`You didn't quite get it this time.  The correct word was ${correctWord}`)
         keyEls.forEach((key) => {
-        key.removeEventListener('click', handleClick)
-    })
-    document.removeEventListener("keydown", handleKeyStroke)
-    createResetBtn()    
+            key.removeEventListener('click', handleClick)
+        })
+        document.removeEventListener("keydown", handleKeyStroke)
+        setTimeout(() => {
+            gameoverMessage.textContent = `The correct word was ${correctWord}`
+            gameoverOverlay.classList.add("active")
+        }, 1600)
     }
-    
 }
 
 function createResetBtn() {
